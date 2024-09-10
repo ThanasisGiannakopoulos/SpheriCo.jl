@@ -93,11 +93,16 @@ out_dir = joinpath(root_dir, "data_${Nr}")
 mkpath(out_dir)
 cp("${parfile}", joinpath(out_dir, "${tag}.jl"), force=true)
 
-# parameters to be passed in the model
-p = Param(
+# radial grid
+g = Grid(
     # discretization parameters
     Nr         = Nr,
-    r_max      = r_max,
+    r_max      = r_max
+)
+
+# parameters to be passed in the model
+p = Param(
+    # time of the simulation
     t_max      = t_max,
     # directory to save data
     out_dir    = out_dir,
@@ -117,6 +122,9 @@ p = Param(
     amp        = amp,
     width      = width,
     rc         = rc,
+    # random data amplitude (for robust stability test)
+    rand = false,
+    A_rand = 10^(-5),
     # infalling_rmax
     infalling_rmax = infalling_rmax,
     # to exit the code if an Apparent horizon is found
@@ -132,7 +140,7 @@ p = Param(
     checkpoint_every = 1.0 # this is given in hours   
 )
 
-run_classical(p)
+run_classical(g, p)
 EOF
 
     #### Run the created SpheriCo example ####
