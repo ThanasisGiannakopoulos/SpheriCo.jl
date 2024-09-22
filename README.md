@@ -4,15 +4,10 @@
 
 SpheriCo.jl is package written in the [Julia programming
 language](https://julialang.org/), developed and tested in version
-1.10.0.
+1.10.0. It simulates the spherically symmetric collapse of a scalar field
+in classical and semiclassical gravity.
 
-## Installation
+For more information on installing and running SpheriCo.jl, please
+see the [documentation](https://sphericojl.readthedocs.io/en/latest/index.html#).
 
-The package is not included in the Julia registry. After you download
-Julia, you can download the package by entering Julia in your
-terminal, entering the package environment by typing " ] " and then
-running
-
-```
-add https://github.com/ThanasisGiannakopoulos/SpheriCo.jl
-```
+For comments or questions, please contact me at giannakopoulos.th@gmail.com.
