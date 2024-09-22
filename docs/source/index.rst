@@ -18,6 +18,7 @@ Contents
 .. toctree::
 
    installation
+   code_structure
    examples
 
    

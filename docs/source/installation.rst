@@ -3,7 +3,6 @@
 Installation
 =============
 
-
 Standard
 ------------
 
@@ -25,8 +24,10 @@ terminal, go to your local directory of the repository and enter the
 Julia REPL by typing ``julia``. Finally, enter the package environment
 by pressing ``]`` and run
 
-
 .. code-block:: console
 
-   pkg> dev .
+   pkg> activate .
 
+To learn more about Julia packages and their development visit `the
+Pkg.jl documentation
+<https://pkgdocs.julialang.org/v1/creating-packages/>`_.
