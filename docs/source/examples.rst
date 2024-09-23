@@ -29,11 +29,11 @@ A single classical simulation can be run with
    possible. Sometimes, more threads might get activated during the
    simulations (not sure why, based on experience with simulations in
    Ubuntu 22.04). It might be useful to run the following command 
-   :code:`export OMP_NUM_THREADS=1` before running the script (see
+   :code_block:`export OMP_NUM_THREADS=1` before running the script (see
    `here <https://github.com/JuliaLang/julia/issues/33409>`_ for a
    related discussion).
 
-5. Run the script with :code:`julia run_classical.jl`. The data are
+5. Run the script with :code_block:`julia run_classical.jl`. The data are
    saved in the file ``<root_dir>/data_<Nr>/``, where ``root_dir`` and
    ``Nr`` (number of points on the spatial grid) are parameters in
    ``run_classical.jl``.
