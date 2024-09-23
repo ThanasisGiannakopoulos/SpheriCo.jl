@@ -148,4 +148,3 @@ function write_checkpoint(it::Int, t::Float64, data_dir::String,
 end
 
 # end write_output
-

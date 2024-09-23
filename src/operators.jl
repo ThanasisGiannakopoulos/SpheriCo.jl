@@ -1,6 +1,6 @@
 # start operators
 
-# FD2 center
+# 2nd order centered, finite difference operator (FD2)
 function  Dr_FD2!(f_r::Vector, f::Vector, sys::System)
     #Nr = length(f)
     ohr2 = 0.5 / sys.hr
@@ -24,7 +24,8 @@ function Dr_FD2(f::Vector, sys::System)
     Dr_FD2!(f_r, f, sys)
 end
 # multiple dispatch
-# for tools
+# for tools (post-processing)
+# different arguments than above
 function  Dr_FD2!(f_r::Vector, f::Vector, hr::Float64)
     #Nr = length(f)
     ohr2 = 0.5 / hr
@@ -48,6 +49,7 @@ function Dr_FD2(f::Vector, hr::Float64)
     Dr_FD2!(f_r, f, hr)
 end
 
+# not used in the evolution, but for experimentation
 function  Drr_FD2!(f_rr::Vector, f::Vector, sys::System)
     Nr = length(f)
     odr2 = 1.0 / sys.hr^2
@@ -70,6 +72,8 @@ function Drr_FD2(f::Vector, sys::System)
     Drr_FD2!(f_rr, f, sys)
 end
 
+# weights for the 2nd order accurate summation-by-parts operators
+# (SBP2)
 function setup_wbar!(wbar::Array{Float64}, L::Int)
 
     Nr = length(wbar)
@@ -109,7 +113,8 @@ function setup_wbar(wbar::Array{Float64}, L::Int)
 end
 
 # for real valued
-# for odd functions; it is assumed for the l' Hospital on r=0 of the centered grid
+# for odd functions
+# it is assumed for the l' Hospital on r=0 of the centered grid
 function  Dr_SBP2!(f_r::Array{Float64}, f::Array{Float64},
                    sys::System,
                    wbar::Array{Float64}, L::Int)
@@ -142,7 +147,7 @@ function  Dr_SBP2!(f_r::Array{Float64}, f::Array{Float64},
     f_r
 end
 
-# for complex
+# for complex-valued
 function  Dr_SBP2!(f_r::Array{ComplexF64}, f::Array{ComplexF64},
                    sys::System,
                    wbar::Array{Float64}, L::Int)
@@ -183,7 +188,7 @@ function Dr_SBP2(f, sys::System, L::Int)
     Dr_SBP2!(f_r, f, sys, wbar, L)
 end
 
-# for tools
+# for tools (post-processing)
 function  Dr_SBP2!(f_r::Vector, f::Vector,
                    hr::Float64,
                    wbar::Array{Float64}, L::Int)
@@ -223,7 +228,7 @@ function Dr_SBP2(f::Vector, hr::Float64, L::Int)
     Dr_SBP2!(f_r, f, hr, wbar, L)
 end
 
-#KO diss for FD2
+# Kreiss-Oliger (KO) dissipation for FD2
 function diss_FD2!(f_r4::Vector, f::Vector, sys::System)
     Nr = length(f)
 
@@ -235,7 +240,6 @@ function diss_FD2!(f_r4::Vector, f::Vector, sys::System)
         f_r4[i] = (f[i-2] - 4.0* f[i-1] + 6.0* f[i] - 4.0* f[i+1] + f[i+2]) / (16.0* sys.hr)
     end
 
-    # f_r4[end-1] = (f[end-4] - 4.0* f[end-3] + 6.0* f[end-2] - 4.0* f[end-1] + f[end]) / (16.0* sys.hr) # human error?
     f_r4[end-1] = (f[end-5] - 4.0* f[end-4] + 6.0* f[end-3] - 4.0* f[end-2] + f[end-1]) / (16.0* sys.hr)
     f_r4[end]   = (f[end-4] - 4.0* f[end-3] + 6.0* f[end-2] - 4.0* f[end-1] + f[end]) / (16.0* sys.hr)
 
@@ -258,7 +262,6 @@ function low_pass!(f_r4::Vector, f::Vector)
         f_r4[i] = (f[i-2] - 4.0* f[i-1] + 6.0* f[i] - 4.0* f[i+1] + f[i+2]) / 16.0
     end
 
-    # f_r4[end-1] = (f[end-4] - 4.0* f[end-3] + 6.0* f[end-2] - 4.0* f[end-1] + f[end]) / 16.0 # human error
     f_r4[end-1]   = (f[end-5] - 4.0* f[end-4] + 6.0* f[end-3] - 4.0* f[end-2] + f[end-1]) / 16.0
     f_r4[end]   = (f[end-4] - 4.0* f[end-3] + 6.0* f[end-2] - 4.0* f[end-1] + f[end]) / 16.0
 
@@ -270,7 +273,9 @@ function low_pass(f)
 end
 
 # projections on a smaller grid using interpolation
-# needs old r grid, new r grid and old grid function; returns new grid funtion (old projected on new grid)
+# needs old r grid, new r grid and old grid function
+# returns new grid funtion (old projected on new grid)
+# not so good at rmax
 function project_on_smaller_grid(r_old::Array, r_new::Array, f_old::Array)
 
     #interpolation
@@ -279,7 +284,5 @@ function project_on_smaller_grid(r_old::Array, r_new::Array, f_old::Array)
     f_itp.(r_new)
 
 end
-
-### not good at rmax; check again
 
 # end operators

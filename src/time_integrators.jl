@@ -4,7 +4,7 @@
 
 #mutate v
 function RK4!(t::Float64, dt::Float64,
-              #
+              # arrays for intermediate steps
               v::Array,
               v1::Array,
               v2::Array,
@@ -15,16 +15,13 @@ function RK4!(t::Float64, dt::Float64,
 
     #v1 =
     F!(t, v1, v, sys, p)
-
     #v2 =
     F!(t, v2, v +0.5*dt*v1, sys, p)
-    
     #v3 =
     F!(t, v3, v +0.5*dt*v2, sys, p)
-    
     #v4 =
     F!(t, v4, v +dt*v3, sys, p)
-        
+
     v .= v + dt*(0.166666667*v1 + 0.333333333*v2 + 0.333333333*v3 + 0.166666667*v4)
 
     nothing
@@ -34,6 +31,7 @@ function RK4(t::Float64, dt::Float64,
              sys::System,
              p::Param)
 
+    # initiate arrays for intermediate step calculation
     v1 = similar(v)
     v2 = similar(v)
     v3 = similar(v)
@@ -49,11 +47,12 @@ end
 #mutate v
 function AB3!(
     v::Array,
+    # the rhs from previous steps; fed by the evolution code
     F2::Array,
     F1::Array,
     F0::Array,
     dt::Float64)
-    
+
     # build v3
     v .= v .+ dt*(1.916666667*F2 .-1.333333333*F1 .+0.416666667*F0)
 
@@ -65,7 +64,7 @@ end
 
 #mutates v_classic and v_quantum
 function RK4!(t::Float64, dt::Float64,
-              #
+              # for intermediate steps
               v_classic::Array,
               v1_classic::Array,
               v2_classic::Array,
@@ -81,19 +80,16 @@ function RK4!(t::Float64, dt::Float64,
 
     #v1 =
     F!(t, v1_classic, v_classic, v1_quantum, v_quantum, sys, p)
-
     #v2 =
     F!(t, v2_classic, v_classic +0.5*dt*v1_classic,
        v2_quantum, v_quantum +0.5*dt*v1_quantum, sys, p)
-    
     #v3 =
     F!(t, v3_classic, v_classic +0.5*dt*v2_classic,
        v3_quantum, v_quantum +0.5*dt*v2_quantum, sys, p)
-    
     #v4 =
     F!(t, v4_classic, v_classic +dt*v3_classic,
        v4_quantum, v_quantum +dt*v3_quantum, sys, p)
-        
+
     v_classic .= v_classic + dt*(0.166666667*v1_classic + 0.333333333*v2_classic + 0.333333333*v3_classic + 0.166666667*v4_classic)
     v_quantum .= v_quantum + dt*(0.166666667*v1_quantum + 0.333333333*v2_quantum + 0.333333333*v3_quantum + 0.166666667*v4_quantum)
 
@@ -105,6 +101,7 @@ function RK4(t::Float64, dt::Float64,
              sys::System,
              p::Param)
 
+    # initiate arrays for intermediate steps
     v1_classic = similar(v_classic)
     v2_classic = similar(v_classic)
     v3_classic = similar(v_classic)
@@ -133,7 +130,7 @@ function AB3!(
     F1_quantum::Array,
     F0_quantum::Array,
     dt::Float64)
-    
+
     # build v3
     v_classic .= v_classic .+ dt*(1.916666667*F2_classic .-1.333333333*F1_classic .+0.416666667*F0_classic)
     v_quantum .= v_quantum .+ dt*(1.916666667*F2_quantum .-1.333333333*F1_quantum .+0.416666667*F0_quantum)
