@@ -28,7 +28,8 @@ function out(p::Param, speed::Float64, it::Int64, t::Float64, v_classic::Array,
 
 end
 
-# function that checks if Ah is found, saves its radius and exit the code if p.AH == true
+# function that checks if an AH is found
+# saves its radius and exit the code if p.AH == true
 function AH_break(r_AH::Float64, p::Param, data_dir::String,
                   it::Int64, t::Float64, v_classic::Array, rr::Array)
     if r_AH > 0 && p.AH == true

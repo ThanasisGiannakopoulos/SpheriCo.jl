@@ -31,8 +31,8 @@ of them, together with a short description:
   simulations with an infalling ``r_max``. The spatial grid is built
   by the function ``System``.
 
-- ``operators.jl``: creates and exports the operators that approximate
-  spatial derivatives (``Dr_FD2``, ``Drr_FD2``, ``Dr_SBP2``), provide
+- ``operators.jl``: creates the operators that approximate spatial
+  derivatives (``Dr_FD2``, ``Drr_FD2``, ``Dr_SBP2``), provide
   numerical dissipation (``KO_FD2``, ``low_pass``), and perform
   projections of variables on a smaller grid
   (``project_on_smaller_grid``). The latter is needed for simulations
@@ -56,3 +56,45 @@ of them, together with a short description:
   equations. They are not exported, but explicitly included at the
   level of each of the submodules. To be exported at the level of the
   main module, their structure needs to be modified appropriately.
+
+  .. _code_structure_submodule_classical:
+
+Submodule ``classical.jl``
+---------------------------
+
+This submodule builds the function ``run_classical`` that performs the
+simulations in classical gravity. This submodule includes the
+following:
+
+- ``parameters.jl``: creates a structure to hold all the parameters
+  needed for the simulation. They are chosen by the user when an
+  example is run. Not all parameters have default values, so if they
+  are left empty an error appears.
+
+- ``rhs.jl``: builds the right-hand-side (rhs) of the evolved equations.
+
+- ``time_integrators.jl``: defined in the main module and included
+  here by providing the relative path. They use the rhs defined in
+  ``SpheriCo.jl/src/classical/rhs.jl``.
+
+- ``constraint.jl``: defined the function ``constraints`` that
+  calculates the violation of the Hamiltonian and momentum
+  constraints. It is used in post-processing, but defined in two ways,
+  such that it can also be used easier during the evolution.
+
+- ``ID.jl``: constructs the initial data for the classical setup.
+
+- ``utils.jl``: creates useful function for the simulation that
+  provide output (``out``), or allow to exit the simulation when an
+  apparent horizon forms (``AH_break``).
+
+- ``evol.jl``: creates the function ``run_classical`` that performs
+  the simulation for the classical setup. It needs the grid and
+  parameters as inputs and uses the above functions, as well as those
+  from the main module. The evolution mainly uses the `third order
+  Adams-Bashforth method
+  <https://en.wikipedia.org/wiki/Linear_multistep_method#Adams%E2%80%93Bashforth_methods>`_,
+  apart from the first two steps, where the `fourth order Runge-Kutta
+  method
+  <https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods#The_Runge%E2%80%93Kutta_method>`_
+  is used.

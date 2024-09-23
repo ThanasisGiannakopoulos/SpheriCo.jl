@@ -1,16 +1,16 @@
-# start quantum rhs
+# start classical right-hand-side (rhs)
 
-#mutates vf_classic and vf_quantum
+#mutates vf_classic
 function F!(t::Float64,
             vf_classic::Array,
             v_classic::Array, 
             sys::System,
             p::Param)
 
+    # grid
     r  = sys.r
     Nr = length(r)
-    
-    """classical"""
+
     # scalar
     Φ    = v_classic[:,1] # even
     Π    = v_classic[:,2] # even
@@ -25,7 +25,7 @@ function F!(t::Float64,
     λ    = v_classic[:,10] # odd
     α    = v_classic[:,11] # even
     Dα   = v_classic[:,12] # odd
-    # constraint violation
+    # for constraint violation
     # Hamiltonian
     Θ    = v_classic[:,13] #  even
     # Momentum (Zr is Z_subscript_r; index down)
@@ -63,7 +63,7 @@ function F!(t::Float64,
     U    = odd_ghosts(U)
     V    = odd_ghosts(V)
 
-    # BC for geometry based on linearized characteristic vars
+    # outgoing BC for geometry based on linearized characteristic vars
     KB[end] = (sqrt(A[end])*Θ[end] + Zr[end])/(2.0*sqrt(A[end]))
     DB[end] = sqrt(A[end])*Θ[end] + Zr[end]
     K[end]  = -(1.0/(sqrt(2.0*A[end])*(-2.0 + α[end])))*
@@ -138,7 +138,7 @@ function F!(t::Float64,
     Dα_r   = Dr_FD2(Dα, sys)
     # define 1/Mp^2 = 8 π G, where G is Netwon's constant and is set to 1 here
     oMp2 = p.overMp2 # 1.0 # 8*π
-
+    # cosmological constant
     Λ = p.CC
 
     # stress-energy tensor components:

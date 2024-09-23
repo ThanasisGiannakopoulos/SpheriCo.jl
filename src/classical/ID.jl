@@ -68,6 +68,7 @@ V0_r0() = 0.0 # V(0,0) = 0.0; dV/dr = sqrt(A)
 # mutates dv
 
 """
+Explore(?):
 Maybe there is a better way to solve for the A_ID,
 maybe it is better to give the boundary value at r_max and not r=0
 """
@@ -87,9 +88,8 @@ function A0_eq_rhs!(dv::Float64,
     else
         # always assume CC=0 for classical ID
         dv = v*( (1.0 - v)/ri + 0.5*ri*(Ψ0^2)*oMp2 )
-            # the 1st one below works wit CC=|theoretical value|
-            #v*( (1.0 - v)/ri + 0.5*ri*(Ψ0^2)*oMp2 - ri*v*Λ*oMp2 )
-            #v*( (1.0 - v)/ri + 0.5*ri*(Ψ0^2)*oMp2 + ri*v*Λ*oMp2 )
+        # the 1st one below works wit CC=|theoretical value|; for backreaction
+        #v*( (1.0 - v)/ri + 0.5*ri*(Ψ0^2)*oMp2 - ri*v*Λ*oMp2 )
     end
     
 end
@@ -101,7 +101,7 @@ to solve for the A_ID; it needs interpolations lib (see later)
 #mutate v
 function RK4_A0!(r00::Float64, hr::Float64,
                  Ψ00::Float64, Ψ05::Float64, Ψ1::Float64,
-                 #
+                 # for intermediate steps
                  v::Float64,
                  v1::Float64,
                  v2::Float64,
@@ -131,7 +131,7 @@ function RK4_A0(r00::Float64, hr::Float64,
 end
 # end A0_ID
 
-# start V0 ID
+# start V0 ID (for double null coordinates used in post-processing)
 # classical; real valued fields
 # V_ID
 # mutates dv
@@ -296,4 +296,3 @@ function classical_ID(v_classic::Array, sys::System, p::Param)
 
     v_classic
 end
-
