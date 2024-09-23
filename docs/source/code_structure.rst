@@ -77,7 +77,7 @@ following:
   here by providing the relative path. They use the rhs defined in
   ``SpheriCo.jl/src/classical/rhs.jl``.
 
-- ``constraint.jl``: defined the function ``constraints`` that
+- ``constraint.jl``: defines the function ``constraints`` that
   calculates the violation of the Hamiltonian and momentum
   constraints. It is used in post-processing, but defined in two ways,
   such that it can also be used easier during the evolution.
