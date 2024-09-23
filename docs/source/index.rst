@@ -5,7 +5,8 @@ Documentation for SpheriCo.jl
 spherical collapse of a scalar field in classical and semiclassical
 gravity.
 
-For questions or comments please contact `Thanasis Giannakopoulos
+The package has been developed and tested in Julia 1.10.0. For
+questions or comments please contact `Thanasis Giannakopoulos
 <giannakopoulos.th@gmail.com>`_.
 
 .. note::
