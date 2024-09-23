@@ -30,9 +30,7 @@ templates_path = ['_templates']
 
 # -- Options for HTML output
 
-html_theme = 'sphinx_rtd_dark_theme' #'sphinx_rtd_theme'
-# user starts in dark mode
-default_dark_mode = True
+html_theme = 'sphinx_rtd_theme'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
