@@ -1,10 +1,10 @@
 @with_kw struct Param
-    #same as classical
+    # same as classical
     # max evolution time
     t_max      :: Float64 = 10.0
     # directory to save data
     out_dir    :: String
-    #CFL
+    # CFL
     cfl        :: Float64 = 0.125
     # KO diss
     sigma      :: Float64 = 0.02
@@ -12,7 +12,7 @@
     damping    :: Float64 = 0.0 # 1.0 (there is constraint damping), or 0.0 (no damping)
     κ1         :: Float64 = 0.02
     κ2         :: Float64 = 0.0
-    # convention: 1/Mp^2 = 1.0 or = 8*π
+    # convention: 1/Mp^2 = 1.0 or = 8*π; a bit different for backreaction
     overMp2    :: Float64 = 8*π
     # cosmological constant; non-zero for quantum with backreaction
     CC         :: Float64 = 0.0
@@ -36,7 +36,7 @@
     ##########################################################
     # quantum
     hbar :: Float64 = 1.0
-    # for filter based on tanh, to cut backreaction in causally disconnecter r-part
+    # for filter based on tanh, to cut backreaction in causally disconnected r-part
     # needed for stability
     steepness ::Float64 = 1.5
     # also for filter; the r where the transition from 1->0 happens
@@ -47,7 +47,7 @@
     # for quantum modes
     dk         :: Float64 = π/15.0 # for the k in the Bessel functions for the quantum ID
     # chose quantum version (regularized or non-regularized)
-    PV_reg :: Bool = false # false=non-reg., true=reg.
+    PV_reg :: Bool = false # false -> non-reg., true -> reg.
     # masses for PV regularization are in principle [m0, m1, m2, m3, m4, m5]
     # m0 = 0.0
     # m1 = m3, m2 = m4 = sqrt(3)*m1, m5 = 2.0*m1

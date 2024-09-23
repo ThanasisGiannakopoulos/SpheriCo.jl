@@ -2,6 +2,7 @@
 # MULTIPLE DISPATCH
 
 # quantum fields initial data
+# quantum number k,l, and m is the mass of the scalar field 
 function uq_ID(r::Float64, k::Float64, m::Float64, l::Float64)
     ω = sqrt(k^2 + m^2)
     if r==0.0
@@ -32,7 +33,7 @@ function πq_ID(r::Float64, k::Float64, m::Float64, l::Float64)
 end
 
 # non-regularized version (only mass=0):
-# one field for each k in [1,kmax], l in [0,lmax], 1 + 2 reduction vars 
+# one field for each k in [1,kmax], l in [0,lmax], 1 + 2 reduction variables 
 # v_quantum = zeros(ComplexF64, (length(rr), Int(p.lmax+1), Int(p.kmax), 3) )
 function quantum_ID(v_quantum::Array{ComplexF64, 4}, sys::System, p::Param)
 
@@ -98,7 +99,7 @@ function quantum_ID(v_quantum::Array{ComplexF64, 5}, sys::System, p::Param)
 
     v_quantum[:,1, 1, 1, 1:3]  are 3 quantum fields for l=0, k=1, mi=m0
     v_quantum[:,1, 1, 2, 1:3]  are 3 quantum fields for l=0, k=1, mi=m1
-        """
+    """
     l_checked = zeros(Threads.nthreads()) # to check the progress of generating ID
     @threads for ll in 0:p.lmax
         id = Threads.threadid()

@@ -212,8 +212,6 @@ function run_quantum(grid::Grid, p::Param)
             end
             # quantum
             if p.PV_reg==false
-                # TODO: check if @threads makes a diff. for nested loops as well
-                # reshaping arrays before @threads might be an alternative
                 @threads for l in 0:p.lmax
                     for k in 1:p.kmax
                         for i in 1:3 # for the 3 quantum fields uq_klm, ψq_klm, πq_klm
@@ -232,7 +230,6 @@ function run_quantum(grid::Grid, p::Param)
                     end # end k loop
                 end # end l loop
             else
-                # TODO: check if @threads makes a diff. for nested loops as well
                 @threads for l in 0:p.lmax
                     for k in 1:p.kmax
                         for m in 1:length(p.mlist)

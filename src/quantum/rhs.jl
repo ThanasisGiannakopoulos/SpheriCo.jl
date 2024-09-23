@@ -13,7 +13,7 @@ function F!(t::Float64,
 
     r  = sys.r
     Nr = length(r)
-    
+
     """classical"""
     # scalar
     Φ    = v_classic[:,1] # even
@@ -257,8 +257,8 @@ function F!(t::Float64,
             oA^0.5 * α * (-1. * DA * ψq + 2. * (DB + Dα) *
             ψq - 2. * (ψq_r) + 4. * (ψq_SBP2lplus1)) + πq_diss
     end # end k loop
-    
-        # for l>0
+
+    # for l>0
     @threads for l in 1:p.lmax
         for k in 1:p.kmax
             # index for uq, ψq, and πq in the state vector (for each l and k)
@@ -333,10 +333,13 @@ function F!(t::Float64,
     filter = zeros(Nr)
     if p.backreaction==true
         if p.infalling_rmax==false
-            # filter the r rescaling because the free BC at rmax make the simulation unstable in the outer part of the domain;
-            # this behaviour seems similar also with outgoing BC for quantum modes
-            # we filter 2 times; ones the r domain before rescaling and once later in the bilinears
-            # the filter is based on a tanh and steepness controls how steep it is at r_cut
+            # filter the r rescaling because the free BC at rmax make
+            # the simulation unstable in the outer part of the domain;
+            # this behaviour seems similar also with outgoing BC for
+            # quantum modes we filter 2 times; ones the r domain
+            # before rescaling and once later in the bilinears the
+            # filter is based on a tanh and steepness controls how
+            # steep it is at r_cut
             steepness = p.steepness
             r_cut = p.r_cut
             filter[3:end] = 0.5*ones(Nr-2) + 0.5*tanh.(-r[3:end].^steepness .+
@@ -487,13 +490,12 @@ function F!(t::Float64,
 
     Λ = p.CC*ones(length(r))
 
-    """ quantum: build the rhs for quantum modes, as well as
-        the bilinears for the backreaction (if there is). 
-        The loops in l are split in l=0 and l>=1,
-        due to the structure of the bilinears.
-        The loops in m are also expanded 
-        (+ a bit faster in running; + lower imag(bln); - more memory)
-        though more lines of code (- ugly/more human errors)
+    """ 
+    quantum: build the rhs for quantum modes, as well as
+    the bilinears for the backreaction (if there is). 
+    The loops in l are split in l=0 and l>=1,
+    due to the structure of the bilinears.
+    The loops in m are also expanded.
     """
 
     # initiate buffers to multithread bilinears' calculation
@@ -638,7 +640,7 @@ function F!(t::Float64,
 
             # bilin[:,1]
             # (4*π)/(hbar*c^2)* [μ^2*<Φ^2>]_quantum = Sum_{klm} dk*μ^2[m]*weight[m]*|utld_klm|^2;
-            # where μ=m is the quantum scalar mass here p.mlist = [0*mPV, 1*mPV, sqrt(3)*mPV, 2*mPV]
+            # where μ=m is the quantum scalar mass, p.mlist = [0*mPV, 1*mPV, sqrt(3)*mPV, 2*mPV]
             # and weight[m] = [1,-2,2,-1]
             buffers[:,1,id] .+= @. p.dk*(p.mlist[1]^2 *utld_kl_m0*conj(utld_kl_m0) -
                 p.mlist[2]^2 *2.0*utld_kl_m1*conj(utld_kl_m1) +
@@ -834,8 +836,8 @@ function F!(t::Float64,
                 utld_kl_m5 = @. r^l*uq_m5
 
                 # bilin[:,1]
-                # (4*π)/(hbar*c^2)* [μ^2*<Φ^2>]_quantum = Sum_{klm} dk*μ^2[m]*weight[m]*|utld_klm|^2;
-                # where μ=m is the quantum scalar mass, p.mlist = [0*mPV, 1*mPV, sqrt(3)*mPV, 2*mPV]
+                # (4*π)/(hbar*c^2)*[μ^2*<Φ^2>]_quantum=Sum_{klm} dk*μ^2[m]*weight[m]*|utld_klm|^2;
+                # μ=m is the quantum scalar mass, p.mlist = [0*mPV, 1*mPV, sqrt(3)*mPV, 2*mPV]
                 # weight[m] = [1,-2,2,-1]
                 buffers[:,1,id] .+= @. p.dk*(2.0*l+1.0)*(
                     p.mlist[1]^2 *utld_kl_m0*conj(utld_kl_m0) -

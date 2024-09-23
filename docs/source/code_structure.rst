@@ -67,11 +67,11 @@ simulation in classical gravity. It includes the following:
 - ``parameters.jl``: creates a structure to hold all the parameters
   needed for the simulation. They are chosen by the user when an
   example is run. Not all parameters have default values and an error
-  might appear if they are left empty.
+  will appear if they are left empty.
 
 - ``rhs.jl``: builds the right-hand-side of the evolved equations.
 
-- ``time_integrators.jl``: defined in the main module and included
+- ``../time_integrators.jl``: defined in the main module and included
   here by providing the relative path. They use the right-hand-side
   defined in the previous item.
 
@@ -103,3 +103,44 @@ simulation in classical gravity. It includes the following:
 Submodule ``quantum.jl``
 ---------------------------
 
+This submodule builds the function ``run_quantum`` that performs the
+simulation in the semiclassical setup. It includes the following:
+
+- ``parameters.jl``: provides the structure with all the necessary
+  parameters for the simulations. Some of them are the same as in the
+  ``classical.jl`` submodule. Not all of the parameters have default
+  values and if left empty an error will appear.
+
+- ``../time_integrators.jl``: included from the main module (no
+  exported functions).
+
+- ``../classical/constraints.jl``: the classical Hamiltonian and
+  momentum constraint violation, loaded from the classical submodule
+  using the relative path.
+
+- ``../classical/ID.jl``: the classical initial data, loaded from the
+  classical submodule using the relative path.
+
+- ``ID.jl``: the initial data for the quantum modes.
+
+- ``bilinears.jl``: functions to calculate the bilinears, expressions
+  necessary for the backreaction of quantum matter to geometry.
+
+- ``correlators.jl``: functions to calculate correlators at equal
+  simulation time, in space (2-point functions).
+
+- ``rhs.jl``: the right-hand-side of the evolved equations. Includes
+  both the classical equations (as in ``classical.jl``) and the
+  equations of motion for the quantum modes (quantum matter). It has
+  versions for reqularized and non-regularized quantum modes (state
+  vectors of different dimensions), as well as for a semiclassical
+  setup with and without backreaction (conditional statements).
+
+- ``utils.jl``: various functions used during the evolution to save
+  data, print output, or stop the simulation if an apparent horizon is
+  formed.
+
+- ``evol.jl``: creates the function ``run_quantum``, that performs the
+  semiclassical simulation. It needs the grid and the model
+  parameters. The time evolution is performed as in the classical
+  case.
