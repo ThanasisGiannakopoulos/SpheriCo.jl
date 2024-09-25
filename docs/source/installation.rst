@@ -26,7 +26,7 @@ by pressing ``]`` and run
 
 .. code-block:: console
 
-   pkg> activate .
+   pkg> dev .
 
 To learn more about Julia packages and their development visit `the
 Pkg.jl documentation
