@@ -88,7 +88,6 @@ The top row explains what is the output on each column:
 9. The maximum of :math:`{\alpha}`. The information on columns 7,8 can
    indicate whether and apparent horizon forms (if min is close to
    zero and max is close to 1).
-
    
 If you run with infalling ``rmax``, the output should look like this
 
@@ -102,8 +101,110 @@ In this case there are two extra columns (10,11) at the end:
 
 11. The position of the outer boundary ``rmax``.
 
+If you choose to save data (set the relevant parameters to ``True``),
+there are messages about it as simple lines.
+
+
+.. _examples-bisection:
+
+Classical bisection
+--------------------
+
+If you want to search for a critical solution (the threshold between
+black hole and no-black hole) in a given classical setup, you can run
+the shell script ``bisection.sh``. This script executes
+``run_classical.jl`` for as long as ``aupper - alower <= damin``,
+where ``aupper`` and ``alower`` refer to the amplitude of the initial
+data for :math:`{\Phi}`, and ``damin`` is the desired difference
+between ``aupper`` and ``alower``. To execute it, after you go to
+``SpheriCo.jl/example``, run
+
+   .. code-block:: console
+
+      ./bisection.sh
+
+The output should look like
+
+.. image:: ../images/bisection.png
+  :width: 800
+
+Each individual simulation has a ``<run_name>`` like
+*rmax12.0_tmax11.5_cfl1o8.0_sigma0.02_damping0.0_amp1.0_width1.0_rc5.0*,
+automatically created by ``bisection.sh``. The data, are saved in
+``SpheriCo.jl/examples/bisection/<run_name>/``, together with the
+executable ``<run_name>.jl``, and the output ``<run_name>.log``.
+
 
 .. _examples-simeclassical:
 
 Semiclassical
 ------------
+
+You can run a semiclassical simulation with ``run_quantum.jl``. The
+steps are:
+
+1. Go to the directory of the examples.
+
+2. Open the script ``run_quantum.jl`` with your favourite text editor.
+
+3. Tune the parameters according to what you want to simulate and save
+   the changes. There is a description of each parameter within the
+   script. Some of them are the same as in the classical case, but not
+   all.
+
+4. There is a parallelization option here. If you want to run with n
+   threads, do
+
+   .. code-block:: console
+
+      export OMP_NUM_THREADS=1
+      export JULIA_NUM_THREADS=n
+      julia run_quantum.jl
+
+   The command ``export OMP_NUM_THREADS=1`` is related to some
+   possible parallelization issues (see `here
+   <https://github.com/JuliaLang/julia/issues/33409>`_ for a related
+   discussion). The data are saved in the file
+   ``<root_dir>/data_<Nr>/``, where ``root_dir`` and ``Nr`` (number of
+   points on the spatial grid) are parameters in ``run_quantum.jl``.
+
+When you run the semiclassical simulation with fixed ``rmax``, the
+output should look like this
+
+.. image:: ../images/run_quantum.png
+  :width: 800
+
+This is almost the same as in ``run_classical.jl`` with fixed
+``rmax``. The only difference is in columns 4,5:
+
+4. Instead of the minimum of the classical scalar field
+   :math:`{\Phi}`, it shows the maximum of its absolute value.
+
+5. It shows the maximum of the absolute value of the most massive
+   quantum mode with the maximum quantum number k,l. If you run
+   without regularization, there is only one type of quantum modes
+   (massless).
+
+You can also execute ``run_quantum.jl`` with infalling ``rmax``, and
+the output should be similar to
+
+.. image:: ../images/run_quantum_infalling_rmax.png
+  :width: 800
+
+which similar to the classical case (apart from the differences
+mentioned just before).
+
+.. _examples-checkpoints:
+
+Run from a checkpoint
+----------------------
+
+
+
+.. _examples-stop:
+
+Stop the simulation
+----------------------
+
+.. careful with convergence tests if you want exactly the same
+   timesteps
