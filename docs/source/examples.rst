@@ -79,13 +79,13 @@ The top row explains what is the output on each column:
    It is initiated to zero and is proportional to the Hamiltonian
    constraint violation.
 
-6. The maximum of the absolute value of the variable :math:`{Z_r}`.
+7. The maximum of the absolute value of the variable :math:`{Z_r}`.
    It is also initiated to zero and is proportional to the momentum
    constraint violation.
 
-7. The minimum of the lapse function :math:`{\alpha}`.
+8. The minimum of the lapse function :math:`{\alpha}`.
 
-8. The maximum of :math:`{\alpha}`. The information on columns 7,8 can
+9. The maximum of :math:`{\alpha}`. The information on columns 7,8 can
    indicate whether and apparent horizon forms (if min is close to
    zero and max is close to 1).
 
