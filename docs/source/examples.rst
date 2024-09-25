@@ -50,7 +50,8 @@ A single classical simulation can be run with
 
 When you run the classical simulation with fixed ``rmax``, the output
 should look like this
-.. image:: ../images/SpheriCo.jl_run_classical.png
+
+.. image:: ../images/run_classical.png
   :width: 400
 
 The top row explains what is the output on each column:
