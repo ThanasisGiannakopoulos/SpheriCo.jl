@@ -89,6 +89,20 @@ The top row explains what is the output on each column:
    indicate whether and apparent horizon forms (if min is close to
    zero and max is close to 1).
 
+   
+If you run with infalling ``rmax``, the output should look like this
+
+.. image:: ../images/run_classical_infalling_rmax.png
+  :width: 800
+
+In this case there are two extra columns (10,11) at the end:
+
+10. The position of the apparent horizon ``r_AH``. If it is negative,
+    there is no apparent horizon.
+
+11. The position of the outer boundary ``rmax``.
+
+
 .. _examples-simeclassical:
 
 Semiclassical
