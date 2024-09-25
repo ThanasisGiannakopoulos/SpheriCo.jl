@@ -191,7 +191,7 @@ the output should be similar to
 .. image:: ../images/run_quantum_infalling_rmax.png
   :width: 800
 
-which similar to the classical case (apart from the differences
+which is similar to the classical case (apart from the differences
 mentioned just before).
 
 .. _examples-checkpoints:
@@ -199,6 +199,18 @@ mentioned just before).
 Run from a checkpoint
 ----------------------
 
+You can also run your simulation (classical or semiclassical) from a
+checkpoint. There is a parameter that you can tune to save checkpoints
+every *x* hours. If there is a checkpoint, it will be saved under
+``<root_dir>/data_<Nr>/``. You just need to run the script
+(e.g. ``run_classical.jl`` in ``SpheriCo.jl/examples/``) with the
+**same parameters and same** ``<root_dir>``. Make sure the time for
+which you want to run (``tmax``) is greater than the time of the
+checkpoint (and also that by changing it you are not changing
+``<root_dir>``). The output should be something like this:
+
+.. image:: ../images/run_from_checkpoint.png
+  :width: 800
 
 
 .. _examples-stop:
@@ -206,5 +218,27 @@ Run from a checkpoint
 Stop the simulation
 ----------------------
 
-.. careful with convergence tests if you want exactly the same
-   timesteps
+If you want to stop your simulation for whatever reason, but you would
+like to have a checkpoint to restart from the same time, there is a
+way to do exactly that. Assuming you are running ``run_classical.jl``:
+
+1. Go to ``SpheriCo.jl/examples/classical_runs/<root_dir>/data_<Nr>``.
+
+2. Make a directory with the name *stop* by executing
+
+   
+   .. code-block:: console
+
+      mkdir stop
+
+   This should make the code exit the simulation, after saving a
+   checkpoint. The output should be something like this:
+
+.. image:: ../images/stop.png
+  :width: 800
+   
+      
+**Be careful** if you want to perform convergence tests and you want
+the simulations in the different resolutions to save data exactly at
+the same timesteps. You might stop the code in a random place, with
+respect to how often data are saved.
