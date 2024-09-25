@@ -52,7 +52,7 @@ When you run the classical simulation with fixed ``rmax``, the output
 should look like this
 
 .. image:: ../images/run_classical.png
-  :width: 400
+  :width: 800
 
 The top row explains what is the output on each column:
 
