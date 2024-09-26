@@ -19,7 +19,14 @@ how it interacts with other tools:
   them is optional for this script, though you need to comment the
   relevant lines out).
 
-- ``bilinears_ID.ipynb``:
+- ``bilinears_ID.ipynb``: see the effect of the quantum modes to the
+  matter content at the right-hand-side of the equations for K, KB
+  (extrinsic curvature). You can tune the quantum numbers ``kmax``,
+  ``lmax``, the Pauli-Villars mass ``mPV`` and the convention for the
+  Planck mass, and more, and see how close the **initial data** are to
+  Minkowski, when the specific backreaction is considered. It might be
+  useful to check this before running a semiclassical example with
+  backreaction.
 
 - ``calculate_UV_correlators.jl``:
 
