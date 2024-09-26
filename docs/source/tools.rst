@@ -11,7 +11,13 @@ are Julia scripts that you can run e.g. in your terminal, like the
 provided within it. Below you can see briefly what each tool does and
 how it interacts with other tools:
 
-- ``bilinears_evol.ipynb``:
+- ``bilinears_evol.ipynb``: analyse the (potential) effect of the
+  quantum modes on the classical geometry, both with or without
+  (potential) backreaction. First, you need to run a semiclassical
+  simulation and save the bilinears and classical variables. The
+  script also loads the quantum variables, but are not used (so saving
+  them is optional for this script, though you need to comment the
+  relevant lines out).
 
 - ``bilinears_ID.ipynb``:
 
