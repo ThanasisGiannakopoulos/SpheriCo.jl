@@ -129,7 +129,7 @@ The output should look like
   :width: 800
 
 Each individual simulation has a ``<run_name>`` like
-*rmax12.0_tmax11.5_cfl1o8.0_sigma0.02_damping0.0_amp1.0_width1.0_rc5.0*,
+"*rmax12.0_tmax11.5_cfl1o8.0_sigma0.02_damping0.0_amp1.0_width1.0_rc5.0*",
 automatically created by ``bisection.sh``. The data, are saved in
 ``SpheriCo.jl/examples/bisection/<run_name>/``, together with the
 executable ``<run_name>.jl``, and the output ``<run_name>.log``.
@@ -152,17 +152,18 @@ steps are:
    script. Some of them are the same as in the classical case, but not
    all.
 
-4. There is a parallelization option here. If you want to run with n
+4. There is a parallelization option here. Say you want to run with 4
    threads, do
 
    .. code-block:: console
 
       export OMP_NUM_THREADS=1
-      export JULIA_NUM_THREADS=n
+      export JULIA_NUM_THREADS=4
       julia run_quantum.jl
 
-   The command ``export OMP_NUM_THREADS=1`` is related to some
-   possible parallelization issues (see `here
+   You can replace 4 with the number of your choice. The command
+   ``export OMP_NUM_THREADS=1`` is related to some possible
+   parallelization issues (see `here
    <https://github.com/JuliaLang/julia/issues/33409>`_ for a related
    discussion). The data are saved in the file
    ``<root_dir>/data_<Nr>/``, where ``root_dir`` and ``Nr`` (number of
@@ -201,8 +202,8 @@ Run from a checkpoint
 
 You can also run your simulation (classical or semiclassical) from a
 checkpoint. There is a parameter that you can tune to save checkpoints
-every *x* hours. If there is a checkpoint, it will be saved under
-``<root_dir>/data_<Nr>/``. You just need to run the script
+every *x* hours (tune *x*). If there is a checkpoint, it will be saved
+under ``<root_dir>/data_<Nr>/``. You just need to run the script
 (e.g. ``run_classical.jl`` in ``SpheriCo.jl/examples/``) with the
 **same parameters and same** ``<root_dir>``. Make sure the time for
 which you want to run (``tmax``) is greater than the time of the
@@ -220,9 +221,11 @@ Stop the simulation
 
 If you want to stop your simulation for whatever reason, but you would
 like to have a checkpoint to restart from the same time, there is a
-way to do exactly that. Assuming you are running ``run_classical.jl``:
+way to do exactly that (both in classical and semiclassical). Assuming
+you are running ``run_classical.jl``:
 
-1. Go to ``SpheriCo.jl/examples/classical_runs/<root_dir>/data_<Nr>``.
+1. Go to ``SpheriCo.jl/examples/classical_runs/<root_dir>/data_<Nr>``,
+   where the data of the simulation are saved.
 
 2. Make a directory with the name *stop* by executing
 
