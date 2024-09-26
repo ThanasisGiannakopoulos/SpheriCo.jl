@@ -34,8 +34,9 @@ how it interacts with other tools:
   without bakcreaction, and save all the quantum modes for some
   timesteps. You create a grid for the coordinates U,V in
   post-porcessing, by tuning ``NU``, ``NV``. It might be useful to
-  check first ``UV_correlators.ipynb`` (maybe also commenting out some
-  lines), to see what is a good choice of ``NU`` and ``NV``.
+  check first ``UV_correlators.ipynb`` (maybe you need to comment out
+  some lines in there), to see what is a good choice of ``NU`` and
+  ``NV``.
 
 - ``check_Hamiltonian_momentum_reduction_constraints.ipynb``:
 
