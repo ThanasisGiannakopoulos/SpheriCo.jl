@@ -7,7 +7,7 @@ There are various tools under ``SpheriCo.jl/tools/`` to help you
 analyse your simulations. All of them are written in Julia and most of
 them are interactive `Jupyter notebooks <https://jupyter.org/>`_. Some
 are Julia scripts that you can run e.g. in your terminal, like the
-examples-bisection_. 
+`examples-bisection`_. 
 
 - ``bilinears_evol.ipynb``:
 
