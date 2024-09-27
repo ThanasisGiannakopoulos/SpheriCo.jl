@@ -11,7 +11,7 @@ are Julia scripts that you can run e.g. in your terminal, like the
 provided within it. Below you can see briefly what each tool does and
 how it interacts with other tools:
 
-- ``bilinears_evol.ipynb``: analyse the (potential) effect of the
+- ``bilinears_evol.ipynb``: Analyse the (potential) effect of the
   quantum modes on the classical geometry, both with or without
   (potential) backreaction. First, you need to run a semiclassical
   simulation and save the bilinears and classical variables. The
@@ -19,7 +19,7 @@ how it interacts with other tools:
   them is optional for this script, though you need to comment the
   relevant lines out).
 
-- ``bilinears_ID.ipynb``: see the effect of the quantum modes to the
+- ``bilinears_ID.ipynb``: See the effect of the quantum modes to the
   matter content at the right-hand-side of the equations for K, KB
   (extrinsic curvature). You can tune the quantum numbers ``kmax``,
   ``lmax``, the Pauli-Villars mass ``mPV``, the convention for Planck
@@ -28,7 +28,7 @@ how it interacts with other tools:
   considered. It might be useful to check this before running a
   semiclassical example with backreaction.
 
-- ``calculate_UV_correlators.jl``: use this to calculate the
+- ``calculate_UV_correlators.jl``: Use this to calculate the
   correlators (2-point functions) in double-null coordinates U,V. You
   first need to run a semiclassical simulations, either with or
   without bakcreaction, and save all the quantum modes for some
@@ -38,14 +38,16 @@ how it interacts with other tools:
   some lines in there), to see what is a good choice of ``NU`` and
   ``NV``.
 
-- ``check_Hamiltonian_momentum_reduction_constraints.ipynb``: check
+- ``check_Hamiltonian_momentum_reduction_constraints.ipynb``: Check
   the violation of the classical Hamiltonian, momentum and reduction
   constraints. You can compare this violation between different
   simulations (e.g. with and without constraint damping). It considers
   only the classical geometry, but it can also be used for a
   semiclassical simulation, as long as the classical data are stored.
 
-- ``check_reduction_constraints_convergence.ipynb``:
+- ``check_reduction_constraints_convergence.ipynb``: Inspect the
+  pointwise convergence of the classical reduction variables. First,
+  you need to run the same simulation in three different resolutions.
 
 - ``classical_bisection_echos_infalling_rmax_convergence.ipynb``:
 
