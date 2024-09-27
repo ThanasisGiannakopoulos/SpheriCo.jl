@@ -49,10 +49,6 @@ how it interacts with other tools:
   pointwise convergence of the classical reduction variables. First,
   you need to run the same simulation in three different resolutions.
 
-- ``classical_bisection_echos_infalling_rmax_convergence.ipynb``:
-
-- ``classical_bisection_echos_infalling_rmax_evol.ipynb``:
-
 - ``classical_convergence.ipynb``:
 
 - ``classical_norm_convergence.ipynb``:
@@ -66,6 +62,16 @@ how it interacts with other tools:
 - ``classical_scalar_evolution.ipynb``:
 
 - ``correlators.ipynb``:
+  
+- ``criticality_echos_convergence.ipynb``: Examine the pointwise
+  convergence at r=0 of the scalar field and lapse function, as well
+  as the behaviour of the Ricci scalar and other quantities, for near
+  critical simulations. It assumes that you run for at least three
+  different resolutions and store the ``r0data`` type. It is suggested
+  to run with infalling rmax, but fixed rmax is also an option
+  (possibly not good results though).
+
+- ``criticality_echos_infalling_rmax_evol.ipynb``:
 
 - ``evol_quantum_backreact_vs_no_backreact.ipynb``:
 
