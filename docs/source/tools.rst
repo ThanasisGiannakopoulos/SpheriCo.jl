@@ -38,7 +38,12 @@ how it interacts with other tools:
   some lines in there), to see what is a good choice of ``NU`` and
   ``NV``.
 
-- ``check_Hamiltonian_momentum_reduction_constraints.ipynb``:
+- ``check_Hamiltonian_momentum_reduction_constraints.ipynb``: check
+  the violation of the classical Hamiltonian, momentum and reduction
+  constraints. You can compare this violation between different
+  simulations (e.g. with and without constraint damping). It considers
+  only the classical geometry, but it can also be used for a
+  semiclassical simulation, as long as the classical data are stored.
 
 - ``check_reduction_constraints_convergence.ipynb``:
 
