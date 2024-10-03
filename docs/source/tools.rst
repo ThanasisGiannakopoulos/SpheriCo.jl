@@ -54,7 +54,9 @@ how it interacts with other tools:
   need to simulate the same setup in three different resolutions
   (double ``Nr`` every time) and save ``data``.
 
-- ``classical_norm_convergence_noisy.ipynb``:
+- ``classical_norm_convergence_noisy.ipynb``: Perform norm convergence
+  tests with noisy data. You need at least three different resolutions
+  for the same setup, and to store ``data``.
 
 - ``classical_pointwise_convergence.jl``: Test the pointwise
   convergence of various classical functions (in r). Assumes three
