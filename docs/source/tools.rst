@@ -71,7 +71,13 @@ how it interacts with other tools:
   to run with infalling rmax, but fixed rmax is also an option
   (possibly not good results though).
 
-- ``criticality_echos_infalling_rmax_evol.ipynb``:
+- ``criticality_echos_infalling_rmax_evol.ipynb``: Analyse a single
+  near critical simulation. You can plot the behaviour of the scalar
+  field, lapse, Ricci scalar, and more, at r=0, as well as create
+  movies of these quantities for the whole radial domain, in time. You
+  need to save the data types ``r0data`` and ``data``,
+  respectively. It works as is for infalling ``rmax``, but with
+  minimal changes for fixed ``rmax`` as well.
 
 - ``evol_quantum_backreact_vs_no_backreact.ipynb``:
 
