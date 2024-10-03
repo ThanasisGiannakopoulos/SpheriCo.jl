@@ -66,7 +66,9 @@ how it interacts with other tools:
   one). You need to store ``data``. You also need to modify the
   script, and give the directory where your data are stored.
 
-- ``classical_scalar_evolution.ipynb``:
+- ``classical_scalar_evolution.ipynb``: Analyse various classical
+  quantities in a single simulation. You need to store the ``data``
+  type for some timesteps of the simulation.
 
 - ``correlators.ipynb``:
   
