@@ -68,7 +68,7 @@ how it interacts with other tools:
 
 - ``classical_scalar_evolution.ipynb``: Analyse various classical
   quantities in a single simulation. You need to store the ``data``
-  type for some timesteps of the simulation.
+  type for some timesteps of the simulation. Assumes a fixed ``rmax``.
 
 - ``correlators.ipynb``:
   
