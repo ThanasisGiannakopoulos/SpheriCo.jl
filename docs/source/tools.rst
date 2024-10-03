@@ -49,9 +49,10 @@ how it interacts with other tools:
   pointwise convergence of the classical reduction variables. First,
   you need to run the same simulation in three different resolutions.
 
-- ``classical_norm_convergence.ipynb``:
-
-- ``classical_norm_convergence.jl``:
+- ``classical_norm_convergence.ipynb``: Check for convergence in the
+  L2 norm of the classical state vector, for strong and weak data. You
+  need to simulate the same setup in three different resolutions
+  (double ``Nr`` every time) and save ``data``.
 
 - ``classical_norm_convergence_noisy.ipynb``:
 
