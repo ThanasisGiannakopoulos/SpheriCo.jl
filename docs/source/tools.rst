@@ -49,15 +49,19 @@ how it interacts with other tools:
   pointwise convergence of the classical reduction variables. First,
   you need to run the same simulation in three different resolutions.
 
-- ``classical_convergence.ipynb``:
-
 - ``classical_norm_convergence.ipynb``:
 
 - ``classical_norm_convergence.jl``:
 
 - ``classical_norm_convergence_noisy.ipynb``:
 
-- ``classical_pointwise_convergence.jl``:
+- ``classical_pointwise_convergence.jl``: Test the pointwise
+  convergence of various classical functions (in r). Assumes three
+  simulations of the same setup, with the only difference the
+  resolution (``Nr``). Also assumes that every time resolution is
+  increased, ``Nr`` is doubled (increase ``D`` in the examples by
+  one). You need to store ``data``. You also need to modify the
+  script, and give the directory where your data are stored.
 
 - ``classical_scalar_evolution.ipynb``:
 

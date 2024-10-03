@@ -26,9 +26,11 @@ n = 0
 # load the r grid
 r_c = h5read(your_dir*"/data_$((Nr-3)*2^n+3)/r.h5","r")
 r = r_c
-drc = r_c[2] - r_c[1]
+drc = r_c[4] - r_c[3]
 r_m = h5read(your_dir*"/data_$((Nr-3)*2^(n+1)+3)/r.h5","r")
+drm = r_m[4] - r_m[3]
 r_f = h5read(your_dir*"/data_$((Nr-3)*2^(n+2)+3)/r.h5","r")
+drf = r_f[4] - r_f[3]
 
 # list all available iterations (and corresponding files)
 (its_c, all_filenames_c) = list_h5_files(your_dir*"/data_$((Nr-3)*2^n+3)", prefix="data_")
@@ -188,9 +190,9 @@ function plot_cmf(i::Int, ri_min, ri_max)
 
     AH = find_AH(r_f, Bf, Af, KBf)
 
-    Hc, Pc  = constraints_sbp21(Φc, Πc, Ψc, Ac, Bc, DBc, Utldc, Kc, KBc, λc, αc, Dαc, r_c, oMp2);
-    Hm, Pm  = constraints_sbp21(Φm, Πm, Ψm, Am, Bm, DBm, Utldm, Km, KBm, λm, αm, Dαm, r_m, oMp2);
-    Hf, Pf  = constraints_sbp21(Φf, Πf, Ψf, Af, Bf, DBf, Utldf, Kf, KBf, λf, αf, Dαf, r_f, oMp2);
+    Hc, Pc  = SpheriCo.classical.constraints(vc, drc, oMp2);
+    Hm, Pm  = SpheriCo.classical.constraints(vm, drm, oMp2);
+    Hf, Pf  = SpheriCo.classical.constraints(vf, drf, oMp2);
 
     plot(r_c[3:ri_max], real(Φc[3:ri_max]), title = "t=$(tc)",  label=L"Φ_c(r)", linewidth = 2,
          ylim = (1.1*minimum(real(Φc[3:ri_max])), 1.1*maximum(real(Φc[3:ri_max]))),
@@ -322,9 +324,9 @@ function cmf_conv(i::Int, ri_min, ri_max)
     αcm = αc[3:end] - αm[3:2:end]
     αmf = αm[3:2:end] - αf[3:4:end]
 
-    Hc, Pc  = constraints_sbp21(Φc, Πc, Ψc, Ac, Bc, DBc, Utldc, Kc, KBc, λc, αc, Dαc, r_c, oMp2);
-    Hm, Pm  = constraints_sbp21(Φm, Πm, Ψm, Am, Bm, DBm, Utldm, Km, KBm, λm, αm, Dαm, r_m, oMp2);
-    Hf, Pf  = constraints_sbp21(Φf, Πf, Ψf, Af, Bf, DBf, Utldf, Kf, KBf, λf, αf, Dαf, r_f, oMp2);
+    Hc, Pc  = SpheriCo.classical.constraints(vc, drc, oMp2);
+    Hm, Pm  = SpheriCo.classical.constraints(vm, drm, oMp2);
+    Hf, Pf  = SpheriCo.classical.constraints(vf, drf, oMp2);
 
     Hcm = Hc[3:end] - Hm[3:2:end]
     Hmf = Hm[3:2:end] - Hf[3:4:end]
@@ -439,3 +441,4 @@ for i in ProgressBar(1:1:length(its_c))
     savefig(plt, out_dir*"/Phi_alpha_H_P_cmf_conv-$(i).pdf")
 end
 println("end")
+println("More plots/gifs option available. Check script and uncomment appropriately.")
