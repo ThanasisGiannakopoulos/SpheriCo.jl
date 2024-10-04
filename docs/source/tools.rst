@@ -126,13 +126,21 @@ how it interacts with other tools:
   the same timesteps in all simulations. The script calculates the
   norm including all quantum modes, as well as a norm with only a
   specific subset. The latter needs to be tuned appropriately,
-  depending on your simulation.
+  depending on your simulation. It supports parallelization.
 
-- ``semiclassical_evol_standing_waves_mink_plots.ipynb``:
+- ``semiclassical_evol_standing_waves_mink_plots.ipynb``: Plot the
+  norms for the standing wave convergence test. First, you need to run
+  ``semiclassical_evol_standing_waves_mink_norms.jl``.
 
-- ``semiclassical_evol.ipynb``:
+- ``semiclassical_evol.ipynb``: Visualise various quantities from a
+  single semiclassical simulation. Assumes that you saved ``data``,
+  ``quantum``, and ``bilinears`` at the same timesteps, and that you
+  run with fixed ``rmax``.
 
-- ``semiclassical_setup_check_ID.ipynb``:
+- ``semiclassical_setup_check_ID.ipynb``: Use this to check if your
+  setup for a semiclassical simulation with backreaction is good
+  (there are certain conditions that should be satisfied). You do not
+  need a prior simulation.
 
 - ``stress-energy_tensor_tr.ipynb``: Visualise various components of
   the stress-energy tensor, both classical and quantum
