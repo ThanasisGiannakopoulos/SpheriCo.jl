@@ -113,7 +113,11 @@ how it interacts with other tools:
   resolution for all simulations and save ``data`` at the same
   timesteps.
 
-- ``semiclassical_evol_backreact_vs_no_backreact.ipynb``:
+- ``semiclassical_evol_backreact_vs_no_backreact.ipynb``: Compare a
+  simulation with and without backreaction. Run the same setup apart
+  from the backreaction (on and off), and save ``data``,
+  ``bilinears``, and ``quantum``. You could omit the latter, and
+  appropriately comment out certain parts of the notebook.
 
 - ``semiclassical_evol_standing_waves_mink_norms.jl``:
 
