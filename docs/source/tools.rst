@@ -70,8 +70,15 @@ how it interacts with other tools:
   quantities in a single simulation. You need to store the ``data``
   type for some timesteps of the simulation. Assumes a fixed ``rmax``.
 
-- ``correlators.ipynb``:
-  
+- ``correlators_tr.ipynb``: Visualise the quantum, equal time,
+  correlators (2-point functions in the r-domain). You need a
+  semiclassical simulation, and to store ``data`` and
+  ``correlators``. It assumes that both data types are saved on the
+  same timesteps (if not, you need to make some modifications). It
+  also assumes that you run with fixed ``rmax``.
+
+- ``correlators_UV.ipynb``:
+
 - ``criticality_echos_convergence.ipynb``: Examine the pointwise
   convergence at r=0 of the scalar field and lapse function, as well
   as the behaviour of the Ricci scalar and other quantities, for near
@@ -100,4 +107,12 @@ how it interacts with other tools:
 
 - ``quantum_setup_check_ID.ipynb``:
 
-- ``UV_correlators.ipynb``:
+- ``stress-energy_tensor_tr.ipynb``: Visualise various components of
+  the stress-energy tensor, both classical and quantum
+  contributions. You need a single semiclassical simulations (with or
+  without backreaction) and to store ``data`` and ``bilinears``. It
+  assumes that both data types are saved for the same timesteps (if
+  not, you need to make some modifications). It also assumes that you
+  run with fixed ``rmax``.
+
+- ``stress-energy_tensor_UV.ipynb``:
