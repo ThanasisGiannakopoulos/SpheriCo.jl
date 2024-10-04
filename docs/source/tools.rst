@@ -28,13 +28,13 @@ how it interacts with other tools:
   considered. It might be useful to check this before running a
   semiclassical example with backreaction.
 
-- ``calculate_UV_correlators.jl``: Use this to calculate the
+- ``calculate_correlators_UV.jl``: Use this to calculate the
   correlators (2-point functions) in double-null coordinates U,V. You
   first need to run a semiclassical simulations, either with or
   without bakcreaction, and save all the quantum modes for some
   timesteps. You create a grid for the coordinates U,V in
   post-porcessing, by tuning ``NU``, ``NV``. It might be useful to
-  check first ``UV_correlators.ipynb`` (maybe you need to comment out
+  check first ``correlators_UV.ipynb`` (maybe you need to comment out
   some lines in there), to see what is a good choice of ``NU`` and
   ``NV``.
 
