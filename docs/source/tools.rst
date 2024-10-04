@@ -119,7 +119,14 @@ how it interacts with other tools:
   ``bilinears``, and ``quantum``. You could omit the latter, and
   appropriately comment out certain parts of the notebook.
 
-- ``semiclassical_evol_standing_waves_mink_norms.jl``:
+- ``semiclassical_evol_standing_waves_mink_norms.jl``: Calculate norms
+  for convergence test of the quantum modes, in Minkowski (the
+  analytical solution is standing waves). You need to run the same
+  simulation with three different resolutions, and save ``quantum`` at
+  the same timesteps in all simulations. The script calculates the
+  norm including all quantum modes, as well as a norm with only a
+  specific subset. The latter needs to be tuned appropriately,
+  depending on your simulation.
 
 - ``semiclassical_evol_standing_waves_mink_plots.ipynb``:
 
