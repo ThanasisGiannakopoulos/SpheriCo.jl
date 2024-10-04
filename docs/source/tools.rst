@@ -103,17 +103,25 @@ how it interacts with other tools:
   respectively. It works as is for infalling ``rmax``, but with
   minimal changes for fixed ``rmax`` as well.
 
-- ``evol_quantum_backreact_vs_no_backreact.ipynb``:
+- ``semiclassical_backreact_mink_consistency_check.ipynb``: Perform a
+  consistency check for the backreaction implementation, against
+  Minkowski. It calculates the L2 norms of the error between the
+  numerical solution and Minkowski, and plots them. It requires some
+  simulations with backreaction, with increasing values of ``kmax``
+  and ``lmax``, and possibly ``mPV``. You need to store ``data`` and
+  run with fixed ``rmax``. It is suggested to run with the same
+  resolution for all simulations and save ``data`` at the same
+  timesteps.
 
-- ``evol_quantum.ipynb``:
+- ``semiclassical_evol_backreact_vs_no_backreact.ipynb``:
 
-- ``evol_quantum_standing_waves_mink_norms.jl``:
+- ``semiclassical_evol_standing_waves_mink_norms.jl``:
 
-- ``evol_quantum_standing_waves_mink_plots.ipynb``:
+- ``semiclassical_evol_standing_waves_mink_plots.ipynb``:
 
-- ``mink_backreact_consistency_check.ipynb``:
+- ``semiclassical_evol.ipynb``:
 
-- ``quantum_setup_check_ID.ipynb``:
+- ``semiclassical_setup_check_ID.ipynb``:
 
 - ``stress-energy_tensor_tr.ipynb``: Visualise various components of
   the stress-energy tensor, both classical and quantum
