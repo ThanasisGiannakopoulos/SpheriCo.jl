@@ -77,7 +77,15 @@ how it interacts with other tools:
   same timesteps (if not, you need to make some modifications). It
   also assumes that you run with fixed ``rmax``.
 
-- ``correlators_UV.ipynb``:
+- ``correlators_UV.ipynb``: Visualise the quantum correlators across
+  null directions (incoming or outgoing). The most relevant is the U-U
+  correlators (across the outgoing null direction, keep V fixed), but
+  you can also see the V-V correlator. After you perform a
+  semiclassical simulation (with or without backreaction), and save
+  ``data`` and ``quantum`` on the same timesteps, you need to run
+  ``calculate_correlators_UV.jl``, for the same values of ``NU`` and
+  ``NV``, as here. By default, the V-V correlators are commented out
+  (also in the calculation).
 
 - ``criticality_echos_convergence.ipynb``: Examine the pointwise
   convergence at r=0 of the scalar field and lapse function, as well
