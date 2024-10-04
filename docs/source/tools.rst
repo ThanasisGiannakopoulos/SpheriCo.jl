@@ -123,4 +123,8 @@ how it interacts with other tools:
   not, you need to make some modifications). It also assumes that you
   run with fixed ``rmax``.
 
-- ``stress-energy_tensor_UV.ipynb``:
+- ``stress-energy_tensor_UV.ipynb``: Visualise the energy (classical
+  and semiclassical) in the outgoing null direction. You need a
+  semiclassical simulation (with or without backreaction) where you
+  store ``data`` and ``bilinears`` at the same timesteps. It assumes a
+  fixed ``rmax``.
