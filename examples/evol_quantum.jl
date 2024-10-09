@@ -24,24 +24,34 @@ rmax  = 15.0
 r_cut = 12.0
 tmax  = 7.0
 # infalling r_max
-infalling_rmax = false
+infalling_rmax = true
 # regularization
-reg = true
+reg = false
 # backreaction; needs non-zero Cosmological Constant (CC)
 backreact = false
 # Pauli-Villars mass
 mPV = 100.0
 # denominator of dk
 dk_denom = 15
+
 # convention for G Newton
-overMp2 = 8.0*π
+# 1/Mp^2 = 1 or 8π if there is no backreaction
+#overMp2 = 8.0*π
+"""
+ if there is backreaction
+ 1/Mp^2|simulation = 1/(Mp^2|physical - mPV^2*ln(2^4/3^3)/(12*4*π^2))
+ choose appropriately
+"""
+PhysMp2 = 1.0 #1/(8*π)
+overMp2 = 1/(PhysMp2 - mPV^2*log(2^4/3^3)/(12*4*π^2))
+
 # Cosmological Constant = -ln(3^9/2^16)*mPV^4/(8*(2pi)^2)
 # NEEDED for backreaction
 CC = 0.0 #-log(3^9/2^16)*(mPV^4)/(8*(2*π)^2)
 # above in CC remember to devide by the Mpl^2 (use the same convention as for the rest)
 # quantum modes
-kmax = 30.0
-lmax = 90.0
+kmax = 10.0
+lmax = 30.0
 if backreact==false
     root_dir = "./quantum_runs/a$(a)_b$(b)_c$(c)_rmax$(rmax)_tmax$(tmax)_cfl$(1.0/cfl_denom)_sigma$(sigma)_overMp2_$(overMp2)_reg_$(reg)_backreact_$(backreact)_mPV$(mPV)_dk_denom_$(dk_denom)_kmax$(kmax)_lmax$(lmax)/"
 end
