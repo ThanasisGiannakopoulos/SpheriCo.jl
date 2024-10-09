@@ -6,6 +6,7 @@ function run_classical(grid::Grid, p::Param)
     tstart = time() # for checkpoint runtime
     last_checkpoint_time = 0.0
 
+    #println("BLAS.get_num_threads() = ", BLAS.get_num_threads())
     println("Start run_classical with number of threads = ", Threads.nthreads())
 
     # pass the parameters of the system
@@ -246,6 +247,11 @@ function run_classical(grid::Grid, p::Param)
 
     # print AH radius
     println("r_AH = $(r_AH)")
+    # if there is an AH, save its position in txt; needed for bisection if AH_break in false
+    if r_AH > 0
+        outfile = joinpath(data_dir, "r_AH.txt")
+        writedlm(outfile, r_AH)
+    end
     println()
 
     println("-------------------------------------------------------------")

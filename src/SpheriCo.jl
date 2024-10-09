@@ -9,6 +9,7 @@ Export function to build the spatial grid and structure for the
 parameters used to build this grid.  These parameters are tunable, and
 so the code can also run with an infalling outer boundary.
 """
+
 export Grid, System
 include("grid.jl")
 

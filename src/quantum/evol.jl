@@ -6,9 +6,14 @@ function run_quantum(grid::Grid, p::Param)
     tstart = time() # for checkpoint runtime
     last_checkpoint_time = 0.0
 
+    #println("BLAS.get_num_threads() = ", BLAS.get_num_threads())
     println("Start run_quantum with number of threads = ", Threads.nthreads())
     println("CC = ", p.CC)
-    println("mlist = ", p.mlist)
+    if p.PV_reg==true
+        println("mlist = ", p.mlist)
+    else
+        println("no Pauli-Villars regularization")
+    end
 
     # pass the parameters of the system
     sys = System(grid)
