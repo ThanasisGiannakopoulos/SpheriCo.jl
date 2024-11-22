@@ -40,15 +40,14 @@ how it interacts with other tools:
      ``NV``.
 
 - ``calculate_UU_correlators_V_slice.jl``: Use this to calculate the
-     correlators (2-point functions) along U direction, in the
-     double-null coordinates U,V. You first need to run a
-     semiclassical simulations, either with or without bakcreaction,
-     and save all the quantum modes for some timesteps. You create a
-     grid for the coordinates U,V in post-porcessing, by setting
-     ``NU``, ``NV``. You should first check
-     ``correlators_UV_slice.ipynb`` (or
-     ``correlators_UV_slice_subcritical.ipynb``) to identify for which
-     V slice you want to calculate the U-U correlator.
+  correlators (2-point functions) along U direction, in the
+  double-null coordinates U,V. You first need to run a semiclassical
+  simulations, either with or without bakcreaction, and save all the
+  quantum modes for some timesteps. You create a grid for the
+  coordinates U,V in post-porcessing, by setting ``NU``, ``NV``. You
+  should first check ``correlators_UV_slice.ipynb`` (or
+  ``correlators_UV_slice_subcritical.ipynb``) to identify for which
+  V slice you want to calculate the U-U correlator.
 
 - ``calculate_VV_correlators_U_slice.jl``: Similar to
   ``calculate_UU_correlators_V_slice.jl``, but for the V-V correlator,
