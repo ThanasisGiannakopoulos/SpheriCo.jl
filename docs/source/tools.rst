@@ -28,15 +28,20 @@ how it interacts with other tools:
   considered. It might be useful to check this before running a
   semiclassical example with backreaction.
 
-- ``calculate_correlators_UV.jl``: Use this to calculate the
-  correlators (2-point functions) in double-null coordinates U,V. You
-  first need to run a semiclassical simulations, either with or
-  without bakcreaction, and save all the quantum modes for some
-  timesteps. You create a grid for the coordinates U,V in
-  post-porcessing, by tuning ``NU``, ``NV``. It might be useful to
-  check first ``correlators_UV.ipynb`` (maybe you need to comment out
-  some lines in there), to see what is a good choice of ``NU`` and
-  ``NV``.
+..
+   - ``calculate_correlators_UV.jl``: Use this to calculate the
+     correlators (2-point functions) in double-null coordinates U,V. You
+     first need to run a semiclassical simulations, either with or
+     without bakcreaction, and save all the quantum modes for some
+     timesteps. You create a grid for the coordinates U,V in
+     post-porcessing, by tuning ``NU``, ``NV``. It might be useful to
+     check first ``correlators_UV.ipynb`` (maybe you need to comment out
+     some lines in there), to see what is a good choice of ``NU`` and
+     ``NV``.
+
+- ``calculate_UU_correlators_V_slice.jl``
+
+- ``calculate_VV_correlators_U_slice.jl``
 
 - ``check_Hamiltonian_momentum_reduction_constraints.ipynb``: Check
   the violation of the classical Hamiltonian, momentum and reduction
@@ -77,16 +82,21 @@ how it interacts with other tools:
   same timesteps (if not, you need to make some modifications). It
   also assumes that you run with fixed ``rmax``.
 
-- ``correlators_UV.ipynb``: Visualise the quantum correlators across
-  null directions (incoming or outgoing). The most relevant is the U-U
-  correlators (across the outgoing null direction, keep V fixed), but
-  you can also see the V-V correlator. After you perform a
-  semiclassical simulation (with or without backreaction), and save
-  ``data`` and ``quantum`` on the same timesteps, you need to run
-  ``calculate_correlators_UV.jl``, for the same values of ``NU`` and
-  ``NV``, as here. By default, the V-V correlators are commented out
-  (also in the calculation).
+..
+   - ``correlators_UV.ipynb``: Visualise the quantum correlators across
+     null directions (incoming or outgoing). The most relevant is the U-U
+     correlators (across the outgoing null direction, keep V fixed), but
+     you can also see the V-V correlator. After you perform a
+     semiclassical simulation (with or without backreaction), and save
+     ``data`` and ``quantum`` on the same timesteps, you need to run
+     ``calculate_correlators_UV.jl``, for the same values of ``NU`` and
+     ``NV``, as here. By default, the V-V correlators are commented out
+     (also in the calculation).
 
+- ``correlators_UV_slice.ipynb``
+
+- ``correlators_UV_slice_subcritical.ipynb``
+  
 - ``criticality_echos_convergence.ipynb``: Examine the pointwise
   convergence at r=0 of the scalar field and lapse function, as well
   as the behaviour of the Ricci scalar and other quantities, for near
