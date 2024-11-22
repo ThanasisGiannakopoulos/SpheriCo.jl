@@ -39,9 +39,20 @@ how it interacts with other tools:
      some lines in there), to see what is a good choice of ``NU`` and
      ``NV``.
 
-- ``calculate_UU_correlators_V_slice.jl``
+- ``calculate_UU_correlators_V_slice.jl``: Use this to calculate the
+     correlators (2-point functions) along U direction, in the
+     double-null coordinates U,V. You first need to run a
+     semiclassical simulations, either with or without bakcreaction,
+     and save all the quantum modes for some timesteps. You create a
+     grid for the coordinates U,V in post-porcessing, by setting
+     ``NU``, ``NV``. You should first check
+     ``correlators_UV_slice.ipynb`` (or
+     ``correlators_UV_slice_subcritical.ipynb``) to identify for which
+     V slice you want to calculate the U-U correlator.
 
-- ``calculate_VV_correlators_U_slice.jl``
+- ``calculate_VV_correlators_U_slice.jl``: Similar to
+  ``calculate_UU_correlators_V_slice.jl``, but for the V-V correlator,
+  along a U slice.
 
 - ``check_Hamiltonian_momentum_reduction_constraints.ipynb``: Check
   the violation of the classical Hamiltonian, momentum and reduction
@@ -93,9 +104,15 @@ how it interacts with other tools:
      ``NV``, as here. By default, the V-V correlators are commented out
      (also in the calculation).
 
-- ``correlators_UV_slice.ipynb``
+- ``correlators_UV_slice.ipynb``: Visualisation for the U-U and V-V
+  correlators, for a supercritical case (an apparent horizon is
+  formed). You need to calculate these, using
+  ``calculate_UU_correlators_V_slice.jl`` and
+  ``calculate_VV_correlators_U_slice.jl``.
 
-- ``correlators_UV_slice_subcritical.ipynb``
+- ``correlators_UV_slice_subcritical.ipynb``: Similar to
+  ``correlators_UV_slice.ipynb``, but for subcritical examples (no
+  apparent horizon is formed).
   
 - ``criticality_echos_convergence.ipynb``: Examine the pointwise
   convergence at r=0 of the scalar field and lapse function, as well
