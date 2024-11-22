@@ -27,7 +27,7 @@ println("Running with number of threads = ", Threads.nthreads())
 
 # give the directory where the data from all the runs are saved
 dir = "../examples/quantum_runs/"
-par = "a1.25_b0.0_c1.0_rmax30.0_tmax8.0_cfl0.0625_sigma0.02_overMp2_1.0_reg_true_backreact_false_mPV1.0_dk_denom_30_kmax20.0_lmax60.0"
+par = "a0.75_b0.0_c1.0_rmax30.0_tmax8.0_cfl0.0625_sigma0.02_overMp2_1.0_reg_true_backreact_false_mPV1.0_dk_denom_30_kmax20.0_lmax60.0"
 your_dir = dir*par
 
 ####################################################################
@@ -47,7 +47,7 @@ Nr = 128*2^D + 3 # the overal course graining
 NU = 400 # index i, labels rows, where mat[i,j] is a matrix
 NV = 400 # index j, labels columns, where mat[i,j] is a matrix
 # the U slice, for VV correlator (if we do that)
-ui = 380
+ui = 280
 ####################################################################
 
 # load the r grid
@@ -121,10 +121,10 @@ ichecked = zeros(lmax) # to measure progress in loops below
 # calculate U correlator for vi slice
 # buffers for sums to make calculation threads safe
 buffers = zeros(ComplexF64, (NV, NV, Threads.nthreads()))
-@threads for l in 1:lmax
+@threads for l in 0:lmax-1
     # thread id
     id = Threads.threadid()
-    ichecked[l] = 1
+    ichecked[l+1] = 1
     print("\rcalculating V-V correlator: $(round((sum(ichecked)/lmax)*100.0, digits=2)) %")
     for k in 1:kmax
 
@@ -146,15 +146,15 @@ buffers = zeros(ComplexF64, (NV, NV, Threads.nthreads()))
                     iup =  idown
                 end
 
-                uq_UV[idown, jleft,:]  = (2*l-1)*r[j]^(l-1)*uq_tr[i,j,l,k,:]
-                uq_UV[iup, jleft,:]    = (2*l-1)*r[j]^(l-1)*uq_tr[i,j,l,k,:]
-                uq_UV[idown, jright,:] = (2*l-1)*r[j]^(l-1)*uq_tr[i,j,l,k,:]
-                uq_UV[iup, jright,:]   = (2*l-1)*r[j]^(l-1)*uq_tr[i,j,l,k,:]
+                uq_UV[idown, jleft,:]  = r[j]^(l)*uq_tr[i,j,l+1,k,:]
+                uq_UV[iup, jleft,:]    = r[j]^(l)*uq_tr[i,j,l+1,k,:]
+                uq_UV[idown, jright,:] = r[j]^(l)*uq_tr[i,j,l+1,k,:]
+                uq_UV[iup, jright,:]   = r[j]^(l)*uq_tr[i,j,l+1,k,:]
             end # r loop
         end # time loop
         # end UV coord transf
 
-        buffers[:,:,id] +=  dk*(
+        buffers[:,:,id] +=  (2*l+1)*dk*(
             uq_UV[ui,:,1].*transpose(conj.(uq_UV[ui,:,1])) .-
             2.0*uq_UV[ui,:,2].*transpose(conj.(uq_UV[ui,:,2])) .+
             2.0*uq_UV[ui,:,3].*transpose(conj.(uq_UV[ui,:,3])) .-
