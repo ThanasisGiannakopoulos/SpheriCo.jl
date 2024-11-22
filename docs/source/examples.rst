@@ -26,17 +26,7 @@ A single classical simulation can be run with
 
 4. There is no parallelization option for the classical simulation, so
    running with 1 thread (the default option) is all that is
-   possible. Sometimes, more threads might get activated during the
-   simulations (not sure why, based on experience with simulations in
-   Ubuntu 22.04). It might be useful to run the following command
-
-   .. code-block:: console
-
-      export OMP_NUM_THREADS=1
-
-   before running the script (see
-   `here <https://github.com/JuliaLang/julia/issues/33409>`_ for a
-   related discussion).
+   possible.
 
 5. Run the script with
 
@@ -157,17 +147,12 @@ steps are:
 
    .. code-block:: console
 
-      export OMP_NUM_THREADS=1
       export JULIA_NUM_THREADS=4
       julia run_quantum.jl
 
-   You can replace 4 with the number of your choice. The command
-   ``export OMP_NUM_THREADS=1`` is related to some possible
-   parallelization issues (see `here
-   <https://github.com/JuliaLang/julia/issues/33409>`_ for a related
-   discussion). The data are saved in the file
-   ``<root_dir>/data_<Nr>/``, where ``root_dir`` and ``Nr`` (number of
-   points on the spatial grid) are parameters in ``run_quantum.jl``.
+   The data are saved in the file ``<root_dir>/data_<Nr>/``, where
+   ``root_dir`` and ``Nr`` (number of points on the spatial grid) are
+   parameters in ``run_quantum.jl``.
 
 When you run the semiclassical simulation with fixed ``rmax``, the
 output should look like this
