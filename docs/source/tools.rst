@@ -38,7 +38,6 @@ how it interacts with other tools:
      check first ``correlators_UV.ipynb`` (maybe you need to comment out
      some lines in there), to see what is a good choice of ``NU`` and
      ``NV``.
-
 - ``calculate_UU_correlators_V_slice.jl``: Use this to calculate the
   correlators (2-point functions) along U direction, in the
   double-null coordinates U,V. You first need to run a semiclassical
@@ -102,7 +101,6 @@ how it interacts with other tools:
      ``calculate_correlators_UV.jl``, for the same values of ``NU`` and
      ``NV``, as here. By default, the V-V correlators are commented out
      (also in the calculation).
-
 - ``correlators_UV_slice.ipynb``: Visualisation for the U-U and V-V
   correlators, for a supercritical case (an apparent horizon is
   formed). You need to calculate these, using
