@@ -8,7 +8,7 @@ using ProgressBars
 
 # give the directory where the data from all the runs are saved
 dir = "../examples/classical_runs/"
-par = "a0.5_b5.0_c2.0_rmax30_tmax15_cfl0.125_sigma0.0_infalling_rmax_false_rand_false_overMp2_25.132741228718345_damp0"
+par = "a0.05_b5.0_c2.0_rmax30_tmax15_cfl0.125_sigma0.0_infalling_rmax_false_rand_false_overMp2_25.132741228718345_damp0"
 your_dir = dir*par
 # the convention
 oMp2 = 8*π #1.0
@@ -335,60 +335,98 @@ function cmf_conv(i::Int, ri_min, ri_max)
     Pmf = Pm[3:2:end] - Pf[3:4:end]
 
     plot(r[3:ri_max], real(Φcm[1:ri_max-2]), title = "t=$(tc)",
-         label=L"Φ_{cm}(r)", linewidth = 2.5,
+         label=L"Φ_{cm}", linewidth = 2.5,
          ylim = (1.1*minimum(Φcm[1:ri_max-2]), 1.1*maximum(Φcm[1:ri_max-2])),
          #color = "royalblue",
-         frame = true,  xaxis=nothing,
+         frame = true,  #xaxis=nothing,
+         xlim = (-0.2,15),
+         xticks = ([0,5,10,15],["","","",""]),
          legendfontsize=10)
-    plot!(r[3:ri_max], 4*real(Φmf[1:ri_max-2]), title = "t=$(tc)",  label=L"4\, Φ_{mf}(r)",
+    p0 = plot!(r[3:ri_max], 4*real(Φmf[1:ri_max-2]), title = "t=$(tc)",  label=L"4\, Φ_{mf}",
           linewidth = 3,
           ylim =(1.1*minimum(4*real(Φmf[1:ri_max-2])), 1.1*maximum(4*real(Φmf[1:ri_max-2]))),
+          #yticks = ([2*10^-4,10^-4,0,-10^-4],[L"2 \cdot 10^{-4}",L"10^{-4}",L"0",L"-10^{-4}"]),
+          yticks = ([2*10^-5,10^-5,0,-10^-5],[L"2 \cdot 10^{-5}",L"10^{-5}",L"0",L"-10^{-5}"]),
           style = :dash,
           #color = "coral",
-          frame = true)
-    p0 = plot!([AH], seriestype="vline", label=L"AH", linewidth=1, color = "black", frame = true,
-               ytickfont=10)
+          frame = true,
+          ytickfont=10)
+    #p0 = plot!([AH], seriestype="vline", label=L"AH", linewidth=1, color = "black", frame = true,
+     #          ytickfont=10)
     
-    plot(r[3:ri_max], abs.(real(Hcm[1:ri_max-2])), label=L"|H_{cm}(r)|", linewidth=2.5, 
-         ylim = (0, 1.1*maximum(abs.(real(Hcm[1:ri_max-2])))),
-         legendfontsize=10
+    plot(r[3:ri_max], abs.(real(Hcm[1:ri_max-2])), label=L"|H_{cm}|", linewidth=2.5, 
+         #ylim = (0, 1.1*maximum(abs.(real(Hcm[1:ri_max-2])))),
+         legendfontsize=10,
+         xlim = (-0.2,15),
+         xticks = ([0,5,10,15],["","","",""]),
+         yscale=:log10,
+         #ylim=( 0.7*minimum(abs.(real(Hcm[1:ri_max-2]))), 4.7*maximum(abs.(real(Hmf[1:ri_max-2]))) ),
+         #yticks = ([10^-1,10^-3,10^-5,10^-7],[L"10^{-1}",L"10^{-3}",L"10^{-5}",L"10^{-7}"])
          #color = "royalblue"
          )
-    plot!(r[3:ri_max], 4*abs.(real(Hmf[1:ri_max-2])), label=L"4\, |H_{mf}(r)|", linewidth=3.0,
-          ylim = (0, 1.1*maximum(4*abs.(real(Hmf[1:ri_max-2])))),
+    p1 = plot!(r[3:ri_max], 4*abs.(real(Hmf[1:ri_max-2])), label=L"4\, |H_{mf}|", linewidth=3.0,
           style = :dash,
           #color = "coral",
-          frame = true,  xaxis=nothing)
-    p1 = plot!([AH], seriestype="vline", label=L"AH", linewidth=1, color = "black",
-               ytickfont=10)
+          frame = true, # xaxis=nothing
+          xlim = (-0.2,15),
+          xticks = ([0,5,10,15],["","","",""]),
+          yscale=:log10,
+          ylim=( 0.7*minimum(abs.(real(Hcm[1:ri_max-2]))), 4.7*maximum(abs.(real(Hmf[1:ri_max-2]))) ),
+          #yticks = ([10^-1,10^-3,10^-5,10^-7],[L"10^{-1}",L"10^{-3}",L"10^{-5}",L"10^{-7}"]),
+          yticks = ([10^(-3),10^(-5),10^(-7),10^(-9)],[L"10^{-3}",L"10^{-5}",L"10^{-7}",L"10^{-9}"]),
+          ytickfont=10
+         )
+    #p1 = plot!([AH], seriestype="vline", label=L"AH", linewidth=1, color = "black",
+    #           ytickfont=10)
     
-    plot(r[3:ri_max], abs.(real(Pcm[1:ri_max-2])), label=L"|P_{cm}(r)|", linewidth=2.5,
-         ylim = (0, 1.1*maximum(abs.(real(Pcm[1:ri_max-2])))),
+    plot(r[3:ri_max], abs.(real(Pcm[1:ri_max-2])), label=L"|P_{cm}|", linewidth=2.5,
+         #ylim = (0, 1.1*maximum(abs.(real(Pcm[1:ri_max-2])))),
          #color = "royalblue"
          )
-    plot!(r[3:ri_max], 4*abs.(real(Pmf[1:ri_max-2])), label=L"4\, |P_{mf}(r)|", linewidth=3.0,
-          ylim =(0, 1.1*maximum(4*abs.(real(Pmf[1:ri_max-2])))),
+    p2= plot!(r[3:ri_max], 4*abs.(real(Pmf[1:ri_max-2])), label=L"4\, |P_{mf}|", linewidth=3.0,
+          #ylim =(0, 1.1*maximum(4*abs.(real(Pmf[1:ri_max-2])))),
           style = :dash,
           #color = "coral",
-          frame = true, legendfontsize=10)
-    p2 = plot!([AH], seriestype="vline", label=L"AH", linewidth=1, color = "black",
-               xtickfont=10, ytickfont=10,
-               xlabel="r") 
+          frame = true, legendfontsize=10,
+          xlim = (-0.2,15),
+          xticks = ([0,5,10,15]),
+          yscale=:log10,
+          ylim=(0.6*minimum(abs.(real(Pcm[1:ri_max-2]))), 4.7*maximum(abs.(real(Pmf[1:ri_max-2])))),
+          #yticks = ([10^(-1),10^(-3),10^(-5),10^(-7)],[L"10^{-1}",L"10^{-3}",L"10^{-5}",L"10^{-7}"]),
+          yticks = ([10^(-3),10^(-5),10^(-7),10^(-9)],[L"10^{-3}",L"10^{-5}",L"10^{-7}",L"10^{-9}"]),
+          xtickfont=10, ytickfont=10,xlabel="r"
+          )
+    #p2 = plot!([AH], seriestype="vline", label=L"AH", linewidth=1, color = "black",
+    #           xtickfont=10, ytickfont=10,
+    #           xlabel="r") 
 
-    plot(r[3:ri_max], real(αcm[1:ri_max-2]), label=L"α_{cm}(r)", linewidth=2.5, 
+    plot(r[3:ri_max], real(αcm[1:ri_max-2]), label=L"α_{cm}", linewidth=2.5, 
          ylim =(1.1*minimum(real(αcm[1:ri_max-2])), 1.1*maximum(real(αcm[1:ri_max-2]))),
          #color = "royalblue"
          )
-    plot!(r[3:ri_max], 4*real(αmf[1:ri_max-2]), label=L"4\, α_{mf}(r)", linewidth=3.0,
+   p3= plot!(r[3:ri_max], 4*real(αmf[1:ri_max-2]), label=L"4\, α_{mf}", linewidth=3.0,
           ylim =(1.1*minimum(4*real(αmf[1:ri_max-2])),1.1*maximum(4*real(αmf[1:ri_max-2]))),
+          #yticks = ([2*10^(-5),-2*10^(-5),-6*10^(-5),-10^(-4)],
+          #[L"2 \cdot 10^{-6}",L"-2 \cdot 10^{-6}",L"-6 \cdot 10^{-6}",L"-10^{-5}"]),
+          yticks = ([3*10^(-5),0,-3*10^(-5)],
+          [L"3 \cdot 10^{-5}","0",L"-3 \cdot 10^{-5}"]),
           style = :dash,
           #color = "coral",
-          frame = true, legend =:topright, legendfontsize=10)
-    p3 = plot!([AH], seriestype="vline", label=L"AH", linewidth=1, color = "black",
-               xtickfont=10, ytickfont=10,
-               xlabel="r") 
+          frame = true, legendfontsize=10,
+          #legend =:topright,
+          legend =:topleft,
+          xtickfont=10, ytickfont=10,
+          xlabel="r",
+          xlim = (-0.2,15),
+          xticks = ([0,5,10,15]))
+#     p3 = plot!([AH], seriestype="vline", label=L"AH", linewidth=1, color = "black",
+#                xtickfont=10, ytickfont=10,
+#                xlabel="r",
+#             xlim = (-0.2,15),
+#             xticks = ([0,5,10,15])
+#            ) 
 
-    plt = plot(p0, p1, p3, p2, layout = grid(2, 2), wsize = (800,600))
+    plt = plot(p0, p1, p3, p2, layout = grid(2, 2), wsize = (800,400))
 end
 
 # make plots and gifs and save
@@ -435,10 +473,14 @@ println("remember to choose the function you want by tuning fi")
 #     savefig(plt, out_dir*"/Phi_alpha_H_P_cmf-$(i).pdf")
 # end
 
-println("Φ, α, H, P convergence evolution pictures in pdf")
-for i in ProgressBar(1:1:length(its_c))
-    plt = cmf_conv(i, 3, ri_max_causal)
-    savefig(plt, out_dir*"/Phi_alpha_H_P_cmf_conv-$(i).pdf")
-end
-println("end")
-println("More plots/gifs option available. Check script and uncomment appropriately.")
+# println("Φ, α, H, P convergence evolution pictures in pdf")
+# for i in ProgressBar(1:1:length(its_c))
+#     plt = cmf_conv(i, 3, ri_max_causal)
+#     savefig(plt, out_dir*"/Phi_alpha_H_P_cmf_conv-$(i).pdf")
+# end
+# println("end")
+# println("More plots/gifs option available. Check script and uncomment appropriately.")
+
+i = 65
+plt = cmf_conv(i, 3, ri_max_causal)
+savefig(plt, out_dir*"/Phi_alpha_H_P_cmf_conv-$(i).pdf")
