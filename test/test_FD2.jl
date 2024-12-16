@@ -34,6 +34,6 @@ using SpheriCo
     fr = Dr_FD2(f, sys)
     
     #@test fr ≈ fr_exact
-    @test maximum(abs.(fr - fr_exact)) < 1e-6  # Tolerance can be adjusted
+    @test maximum(abs.(fr - fr_exact)) < 1e-16  # Tolerance can be adjusted
 
 end
