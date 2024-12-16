@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           julia -e 'using Pkg; Pkg.add("Test")'  # Install Test.jl for running tests
-          julia -e 'using Pkg; Pkg.add(PackageSpec(path=".."))'  # Add SpheriCo package from the parent directory
+          julia -e 'using Pkg; Pkg.add(PackageSpec(path="../.."))'  # Add SpheriCo package from the parent directory
           julia -e 'using Pkg; Pkg.instantiate()'  # Ensure all dependencies are installed
     
       - name: Run tests
