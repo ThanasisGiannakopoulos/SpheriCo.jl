@@ -25,16 +25,32 @@ jobs:
       - name: Install dependencies
         run: |
           julia -e 'using Pkg; Pkg.add("Test")'  # Install Test.jl for running tests
+          julia -e 'using Pkg; Pkg.add("Coverage")'  # Install Coverage.jl
           julia -e 'using Pkg; Pkg.add(PackageSpec(path="./"))'  # Add SpheriCo package from the parent directory
           julia -e 'using Pkg; Pkg.instantiate()'  # Ensure all dependencies are installed
     
-      - name: Run tests
+      - name: Run tests with coverage
         run: |
-          julia -e 'using Test; include("./tests/runtests.jl")'  # Runs the tests in 'runtests.jl'
+          julia -e '
+            using Pkg;
+            Pkg.test(coverage=true);
+            using Coverage;
+            cover = process_folder();
+            LCOV.writefile("lcov-report.info", cover);
+          '  # Generates a coverage report in lcov format
 
       - name: Upload coverage to Codecov
         run: |
-          curl -s https://codecov.io/bash > codecov.sh
-          chmod +x codecov.sh
-          ./codecov.sh -t ${{ secrets.CODECOV_TOKEN }} -f lcov-report*.json  # Upload with your token
+          curl -s https://codecov.io/bash | bash -s -- -f lcov-report.info -t ${{ secrets.CODECOV_TOKEN }}    
+    
+          
+      # - name: Run tests
+      #   run: |
+      #     julia -e 'using Test; include("./tests/runtests.jl")'  # Runs the tests in 'runtests.jl'
+
+      # - name: Upload coverage to Codecov
+      #   run: |
+      #     curl -s https://codecov.io/bash > codecov.sh
+      #     chmod +x codecov.sh
+      #     ./codecov.sh -t ${{ secrets.CODECOV_TOKEN }} -f lcov-report*.json  # Upload with your token
         
