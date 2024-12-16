@@ -1,5 +1,5 @@
 
-name: SpheriCo.jl tests
+name: CI
 on: [push, pull_request]
 jobs:
   run:
