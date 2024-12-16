@@ -1,5 +1,5 @@
 
-name: Workflow for Codecov example-julia
+name: SpheriCo.jl tests
 on: [push, pull_request]
 jobs:
   run:
