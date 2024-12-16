@@ -24,8 +24,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          julia -e 'using Pkg; Pkg.instantiate()'  # Installs all dependencies in your Project.toml
-
+          julia -e 'using Pkg; Pkg.add("Test")'  # Install Test.jl for running tests
+          julia -e 'using Pkg; Pkg.add(PackageSpec(path=joinpath(Pkg.Types.Context().current_project, "..", "SpheriCo.jl")))'  # Add SpheriCo package from local path
+          julia -e 'using Pkg; Pkg.instantiate()'  # Ensure all dependencies are installed
+    
       - name: Run tests
         run: |
           julia -e 'using Test; include("./tests/runtests.jl")'  # Runs the tests in 'runtests.jl'
