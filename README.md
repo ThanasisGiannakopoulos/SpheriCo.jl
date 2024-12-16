@@ -1,3 +1,6 @@
+![Test Status](https://img.shields.io/github/workflow/status/ThanasisGiannakopoulos/SpheriCo.jl/ci?label=Tests&logo=github)
+[![Coverage Status](https://codecov.io/gh/ThanasisGiannakopoulos/SpheriCo.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/ThanasisGiannakopoulos/SpheriCo.jl)
+
 # SpheriCo.jl
 
 **Work in progress**
