@@ -1,47 +1,47 @@
-name: Julia CI
+# name: Julia CI
 
-on:
-  push:
-    branches:
-      - main  # Run the tests on push to the 'main' branch
-  pull_request:
-    branches:
-      - main  # Run the tests on pull requests to the 'main' branch
-  # Optionally, you can set it to run on other branches or tag pushes
+# on:
+#   push:
+#     branches:
+#       - main  # Run the tests on push to the 'main' branch
+#   pull_request:
+#     branches:
+#       - main  # Run the tests on pull requests to the 'main' branch
+#   # Optionally, you can set it to run on other branches or tag pushes
 
-jobs:
-  test:
-    runs-on: ubuntu-latest  # The virtual environment to run your tests in
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest  # The virtual environment to run your tests in
 
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2  # This checks out your repository code
+#     steps:
+#       - name: Check out code
+#         uses: actions/checkout@v2  # This checks out your repository code
       
-      - name: Set up Julia
-        uses: julia-actions/setup-julia@v1  # This action sets up Julia on the runner
-        with:
-          version: '1.10'  # You can specify the version of Julia you want to use
+#       - name: Set up Julia
+#         uses: julia-actions/setup-julia@v1  # This action sets up Julia on the runner
+#         with:
+#           version: '1.10'  # You can specify the version of Julia you want to use
 
-      - name: Install dependencies
-        run: |
-          julia -e 'using Pkg; Pkg.add("Test")'  # Install Test.jl for running tests
-          julia -e 'using Pkg; Pkg.add("Coverage")'  # Install Coverage.jl
-          julia -e 'using Pkg; Pkg.add(PackageSpec(path="./"))'  # Add SpheriCo package from the parent directory
-          julia -e 'using Pkg; Pkg.instantiate()'  # Ensure all dependencies are installed
+#       - name: Install dependencies
+#         run: |
+#           julia -e 'using Pkg; Pkg.add("Test")'  # Install Test.jl for running tests
+#           julia -e 'using Pkg; Pkg.add("Coverage")'  # Install Coverage.jl
+#           julia -e 'using Pkg; Pkg.add(PackageSpec(path="./"))'  # Add SpheriCo package from the parent directory
+#           julia -e 'using Pkg; Pkg.instantiate()'  # Ensure all dependencies are installed
     
-      - name: Run tests with coverage
-        run: |
-          julia -e '
-            using Pkg;
-            Pkg.test(coverage=true);
-            using Coverage;
-            cover = process_folder();
-            LCOV.writefile("lcov-report.info", cover);
-          '  # Generates a coverage report in lcov format
+#       - name: Run tests with coverage
+#         run: |
+#           julia -e '
+#             using Pkg;
+#             Pkg.test(coverage=true);
+#             using Coverage;
+#             cover = process_folder();
+#             LCOV.writefile("lcov-report.info", cover);
+#           '  # Generates a coverage report in lcov format
 
-      - name: Upload coverage to Codecov
-        run: |
-          curl -s https://codecov.io/bash | bash -s -- -f lcov-report.info -t ${{ secrets.CODECOV_TOKEN }}    
+#       - name: Upload coverage to Codecov
+#         run: |
+#           curl -s https://codecov.io/bash | bash -s -- -f lcov-report.info -t ${{ secrets.CODECOV_TOKEN }}    
     
           
       # - name: Run tests
@@ -54,3 +54,48 @@ jobs:
       #     chmod +x codecov.sh
       #     ./codecov.sh -t ${{ secrets.CODECOV_TOKEN }} -f lcov-report*.json  # Upload with your token
         
+name: Julia CI
+
+on:
+  push:
+    branches:
+      - main  # Run the tests on push to the 'main' branch
+  pull_request:
+    branches:
+      - main  # Run the tests on pull requests to the 'main' branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # The virtual environment to run your tests in
+
+    steps:
+      # Step 1: Check out repository code
+      - name: Check out code
+        uses: actions/checkout@v2
+      
+      # Step 2: Set up Julia environment
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: '1.10'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          julia -e 'using Pkg; Pkg.instantiate(); Pkg.add("Coverage")'
+
+      # Step 4: Run tests with coverage enabled
+      - name: Run tests with coverage
+        run: |
+          julia --project=. -e '
+            using Pkg, Coverage;
+            Pkg.test(coverage=true);
+            LCOV.writefile("lcov-report.info", process_folder());
+          '
+
+      # Step 5: Upload coverage to Codecov
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: lcov-report.info  # Path to coverage report
+          token: ${{ secrets.CODECOV_TOKEN }}  # Codecov token (optional if not required)
