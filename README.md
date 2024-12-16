@@ -1,4 +1,5 @@
 ![Test Status](https://img.shields.io/github/workflow/status/ThanasisGiannakopoulos/SpheriCo.jl/ci.yml?label=Tests&logo=github)
+[![Test Status](https://github.com/ThanasisGiannakopoulos/SpheriCo.jl/actions/workflows/ci.yml/badge.svg)](https://github.com/ThanasisGiannakopoulos/SpheriCo.jl/actions)
 [![Coverage Status](https://codecov.io/gh/ThanasisGiannakopoulos/SpheriCo.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/ThanasisGiannakopoulos/SpheriCo.jl)
 
 # SpheriCo.jl
