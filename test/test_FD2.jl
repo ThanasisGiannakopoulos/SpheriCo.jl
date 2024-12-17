@@ -31,9 +31,12 @@ using SpheriCo
         fr_exact[i] = SpheriCo.classical.ID_gauss_r(sys.r[i], a, c, b)    
     end
 
-    fr = Dr_FD2(f, sys)
-    
+    fr1 = Dr_FD2(f, sys) # in the code
+    hr = sys.r[4] - sys.r[3]
+    fr2 = Dr_FD2(f, hr) # postprocessing version
+
     #@test fr ≈ fr_exact
-    @test maximum(abs.(fr - fr_exact)) < 1e-6  # Tolerance can be adjusted
+    @test maximum(abs.(fr1 - fr_exact)) < 1e-6  # Tolerance can be adjusted
+    @test maximum(abs.(fr2 - fr_exact)) < 1e-6  # Tolerance can be adjusted
 
 end
