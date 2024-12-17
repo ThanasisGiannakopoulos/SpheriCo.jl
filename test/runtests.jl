@@ -5,3 +5,4 @@ using SpheriCo
 include("test_ghosts.jl") 
 include("test_FD2.jl")
 include("test_SBP.jl")
+include("test_time_integrators.jl")
