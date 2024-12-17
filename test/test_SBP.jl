@@ -7,7 +7,7 @@ TODO: it is not checking the last point at rmax (there is an error there maybe)
 practically we ignore the outer part of the domain in physical interpretation, but it could be improved
 """
 
-# define the 2nd radial derivative of the gaussian IDfunction ID_gauss_r(r::Real, amp::Float64, width::Float64, rc::Float64)
+# define the 2nd radial derivative of the gaussian ID
 function ID_gauss_rr(r::Real, amp::Float64, width::Float64, rc::Float64)
     f = (2*amp*exp(-((r + rc)^2/width^2))*(2*(1 + exp((4*r*rc)/width^2))*r^2 -
      4*(-1 + exp((4*r*rc)/width^2))*r*rc +
