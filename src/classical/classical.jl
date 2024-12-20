@@ -33,6 +33,7 @@ using DelimitedFiles
 import Base.Threads.@threads
 
 include("parameters.jl")
+export F!
 include("rhs.jl")
 include("../time_integrators.jl")
 export constraints

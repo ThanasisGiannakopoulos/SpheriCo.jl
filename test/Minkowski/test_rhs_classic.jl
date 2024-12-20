@@ -2,9 +2,6 @@ using Test
 using SpheriCo
 using Parameters
 using Interpolations
-include("../../src/classical/parameters.jl")
-include("../../src/classical/ID.jl")
-include("../../src/classical/rhs.jl")
 
 @testset "Test classical rhs: Minkowski" begin
 
@@ -31,7 +28,7 @@ include("../../src/classical/rhs.jl")
     c = 2.0
 
     # parameters to be passed in the model
-    p = Param(
+    p = SpheriCo.classical.Param(
     # time of simulation
     t_max      = 1,
     # directory to save data
@@ -77,10 +74,10 @@ include("../../src/classical/rhs.jl")
     rr = sys.r
     # v_classic = [Φ, Π, Ψ, A, B, DB, Utld, K, KB, λ, α, Dα, Θ, Zr, f, g, U, V]^T
     v_classic = zeros(Float64, ( length(rr), 18) )
-    v_classic = classical_ID(v_classic, sys, p)
+    v_classic = SpheriCo.classical.classical_ID(v_classic, sys, p)
     # initiate the rhs as random numbers
     rhs = rand(Float64, ( length(rr), 18) )
-    F!(t, rhs, v_classic, sys, p)
+    SpheriCo.classical.F!(t, rhs, v_classic, sys, p)
     # test rhs
     @test maximum(abs.(rhs[:,1:16] - zeros(Float64, (length(rr), 16)))[3:end]) < 1e-16
     @test maximum(abs.(rhs[:,17:18] - ones(Float64, (length(rr), 2)))[3:end]) < 1e-16
