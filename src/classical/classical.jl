@@ -37,6 +37,7 @@ include("rhs.jl")
 include("../time_integrators.jl")
 export constraints
 include("constraints.jl")
+export classical_ID
 include("ID.jl")
 include("utils.jl")
 include("evol.jl")
