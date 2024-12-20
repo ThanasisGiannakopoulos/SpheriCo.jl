@@ -1,9 +1,8 @@
 using Test
 using SpheriCo
 using Parameters
-using Interpolations
 
-@testset "Test Minkowski ID: classical" begin
+@testset "Test Hamiltonian & momentum constraints: Minkowski" begin
 
     # change D for number of points
     D = 6
@@ -75,41 +74,14 @@ using Interpolations
     # v_classic = [Φ, Π, Ψ, A, B, DB, Utld, K, KB, λ, α, Dα, Θ, Zr, f, g, U, V]^T
     v_classic = zeros(Float64, ( length(rr), 18) )
     v_classic = SpheriCo.classical.classical_ID(v_classic, sys, p)
+    Ham1, mom1 = SpheriCo.classical.constraints(v_classic, sys, p)
+    # the constraint function version for postprocessing
+    Ham2, mom2 = SpheriCo.classical.constraints(v_classic, sys.hr, 1.0)
     
-    # test Φ
-    @test maximum(abs.(v_classic[:,1] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test Π
-    @test maximum(abs.(v_classic[:,2] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test Ψ
-    @test maximum(abs.(v_classic[:,3] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test A
-    @test maximum(abs.(v_classic[:,4] - ones(Float64, length(rr) ))[3:end]) < 1e-16
-    # test B
-    @test maximum(abs.(v_classic[:,5] - ones(Float64, length(rr) ))[3:end]) < 1e-16
-    # test DB
-    @test maximum(abs.(v_classic[:,6] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test Utld
-    @test maximum(abs.(v_classic[:,7] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test K
-    @test maximum(abs.(v_classic[:,8] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test KB
-    @test maximum(abs.(v_classic[:,9] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test λ
-    @test maximum(abs.(v_classic[:,10] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test α
-    @test maximum(abs.(v_classic[:,11] - ones(Float64, length(rr) ))[3:end]) < 1e-16
-    # test Dα
-    @test maximum(abs.(v_classic[:,12] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test Θ
-    @test maximum(abs.(v_classic[:,13] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test Zr
-    @test maximum(abs.(v_classic[:,14] - zeros(Float64, length(rr) ))[3:end]) < 1e-16
-    # test f
-    @test maximum(abs.(v_classic[:,15] - ones(Float64, length(rr) ))[3:end]) < 1e-16
-    # test g
-    @test maximum(abs.(v_classic[:,16] - ones(Float64, length(rr) ))[3:end]) < 1e-16
-    # test U
-    @test maximum(abs.(v_classic[:,17] + rr[:])[3:end]) < 1e-16
-    # test V
-    @test maximum(abs.(v_classic[:,18] - rr[:])[3:end]) < 1e-16
+    # test Hamiltonian constraint
+    @test maximum(abs.(Ham1 - zeros(Float64, length(rr) ))[3:end]) < 1e-16
+    @test maximum(abs.(Ham2 - zeros(Float64, length(rr) ))[3:end]) < 1e-16
+    # test momentum constraint
+    @test maximum(abs.(mom1 - zeros(Float64, length(rr) ))[3:end]) < 1e-16
+    @test maximum(abs.(mom2 - zeros(Float64, length(rr) ))[3:end]) < 1e-16
 end
