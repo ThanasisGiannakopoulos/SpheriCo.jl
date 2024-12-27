@@ -48,12 +48,14 @@ include("../classical/constraints.jl")
 # classical ID, real-valued
 include("../classical/ID.jl")
 # quantum ID, complex-valued
+export quantum_ID
 include("ID.jl")
 
 # bilinears and correlators
 include("bilinears.jl")
 include("correlators.jl")
 
+export F!
 include("rhs.jl")
 include("utils.jl")
 include("evol.jl")

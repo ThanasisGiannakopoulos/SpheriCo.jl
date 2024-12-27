@@ -331,6 +331,7 @@ function F!(t::Float64,
 
     # make filter for outer boundary (smooth step function based on tanh)
     filter = zeros(Nr)
+    #filter2 = zeros(Nr)
     if p.backreaction==true
         if p.infalling_rmax==false
             # filter the r rescaling because the free BC at rmax make
@@ -347,6 +348,15 @@ function F!(t::Float64,
             # steepness can be e.g. 1.5 and it does not work well for r<0, so copy it after
             filter[1] = filter[5]
             filter[2] = filter[4]
+            # # filter 2
+            # steepness2 = 0.9
+            # r_cut2 = r_cut+5
+            # filter2[3:end] = 0.5*ones(Nr-2) + 0.5*tanh.(-r[3:end].^steepness2 .+
+            #     (r_cut2^steepness2).*ones(Nr-2))
+            # filter2[1] = filter2[5]
+            # filter2[2] = filter2[4]
+            # # multiply filer
+            # filter=filter.*filter2
         else
             steepness = p.steepness
             r_cut = p.r_cut - t
@@ -621,6 +631,24 @@ function F!(t::Float64,
             ψq_m5 - 2. * (ψq_m5_r) + 4. * (ψq_m5_SBP2lplus1)) -
             α*B*A^(0.5)*p.mlist[4]^(2.0)*uq_m5 + πq_m5_diss
 
+        # radiative boundary condition at rmax
+        # ∂_t f + vout*∂_r f + f/rmax = 0
+        # uq
+        vf_quantum[end, 1, Int(k), 1, 1] = - vout_rmax*uq_m0_r[end] + uq_m0_diss[end] - uq_m0[end]/sys.r[end]
+        vf_quantum[end, 1, Int(k), 2, 1] = - vout_rmax*uq_m1_r[end] + uq_m1_diss[end] - uq_m1[end]/sys.r[end]
+        vf_quantum[end, 1, Int(k), 3, 1] = - vout_rmax*uq_m2_r[end] + uq_m2_diss[end] - uq_m2[end]/sys.r[end]
+        vf_quantum[end, 1, Int(k), 4, 1] = - vout_rmax*uq_m5_r[end] + uq_m5_diss[end] - uq_m5[end]/sys.r[end]
+        # ψq
+        vf_quantum[end, 1, Int(k), 1, 2] = - vout_rmax*ψq_m0_r[end] + ψq_m0_diss[end] - ψq_m0[end]/sys.r[end]
+        vf_quantum[end, 1, Int(k), 2, 2] = - vout_rmax*ψq_m1_r[end] + ψq_m1_diss[end] - ψq_m1[end]/sys.r[end]
+        vf_quantum[end, 1, Int(k), 3, 2] = - vout_rmax*ψq_m2_r[end] + ψq_m2_diss[end] - ψq_m2[end]/sys.r[end]
+        vf_quantum[end, 1, Int(k), 4, 2] = - vout_rmax*ψq_m5_r[end] + ψq_m5_diss[end] - ψq_m5[end]/sys.r[end]
+        # πq
+        vf_quantum[end, 1, Int(k), 1, 3] = - vout_rmax*πq_m0_r[end] + πq_m0_diss[end] - πq_m0[end]/sys.r[end]
+        vf_quantum[end, 1, Int(k), 2, 3] = - vout_rmax*πq_m1_r[end] + πq_m1_diss[end] - πq_m1[end]/sys.r[end]
+        vf_quantum[end, 1, Int(k), 3, 3] = - vout_rmax*πq_m2_r[end] + πq_m2_diss[end] - πq_m2[end]/sys.r[end]
+        vf_quantum[end, 1, Int(k), 4, 3] = - vout_rmax*πq_m5_r[end] + πq_m5_diss[end] - πq_m5[end]/sys.r[end]
+
         if p.backreaction==true
             # utld_kl = r^l*uq; for l=0, utld_kl = uq
             utld_kl_m0 = uq_m0
@@ -809,31 +837,51 @@ function F!(t::Float64,
                 (λ_SBP2l)) - 2. * (ψq_m5_r) + 4. * (ψq_m5_SBP2lplus1)) -
                 α*B*A^(0.5)*p.mlist[4]^(2.0)*uq_m5 + πq_m5_diss
 
+            # radiative boundary condition at rmax
+            # ∂_t f + vout*∂_r f + f/rmax = 0
+            # uq
+            vf_quantum[end, Int(l+1), Int(k), 1, 1] = - vout_rmax*uq_m0_r[end] + uq_m0_diss[end] - uq_m0[end]/sys.r[end]
+            vf_quantum[end, Int(l+1), Int(k), 2, 1] = - vout_rmax*uq_m1_r[end] + uq_m1_diss[end] - uq_m1[end]/sys.r[end]
+            vf_quantum[end, Int(l+1), Int(k), 3, 1] = - vout_rmax*uq_m2_r[end] + uq_m2_diss[end] - uq_m2[end]/sys.r[end]
+            vf_quantum[end, Int(l+1), Int(k), 4, 1] = - vout_rmax*uq_m5_r[end] + uq_m5_diss[end] - uq_m5[end]/sys.r[end]
+            # ψq
+            vf_quantum[end, Int(l+1), Int(k), 1, 2] = - vout_rmax*ψq_m0_r[end] + ψq_m0_diss[end] - ψq_m0[end]/sys.r[end]
+            vf_quantum[end, Int(l+1), Int(k), 2, 2] = - vout_rmax*ψq_m1_r[end] + ψq_m1_diss[end] - ψq_m1[end]/sys.r[end]
+            vf_quantum[end, Int(l+1), Int(k), 3, 2] = - vout_rmax*ψq_m2_r[end] + ψq_m2_diss[end] - ψq_m2[end]/sys.r[end]
+            vf_quantum[end, Int(l+1), Int(k), 4, 2] = - vout_rmax*ψq_m5_r[end] + ψq_m5_diss[end] - ψq_m5[end]/sys.r[end]
+            # πq
+            vf_quantum[end, Int(l+1), Int(k), 1, 3] = - vout_rmax*πq_m0_r[end] + πq_m0_diss[end] - πq_m0[end]/sys.r[end]
+            vf_quantum[end, Int(l+1), Int(k), 2, 3] = - vout_rmax*πq_m1_r[end] + πq_m1_diss[end] - πq_m1[end]/sys.r[end]
+            vf_quantum[end, Int(l+1), Int(k), 3, 3] = - vout_rmax*πq_m2_r[end] + πq_m2_diss[end] - πq_m2[end]/sys.r[end]
+            vf_quantum[end, Int(l+1), Int(k), 4, 3] = - vout_rmax*πq_m5_r[end] + πq_m5_diss[end] - πq_m5[end]/sys.r[end]
+
             if p.backreaction==true
 
+                # apply the filter to r as well
+                rfilt = r.*filter
                 # rlminus1_u_kl_mi := r^(l-1)*u_klm
-                rlminus1_u_kl_m0 = @. r^(l-1.0)*uq_m0
-                rlminus1_u_kl_m1 = @. r^(l-1.0)*uq_m1
-                rlminus1_u_kl_m2 = @. r^(l-1.0)*uq_m2
-                rlminus1_u_kl_m5 = @. r^(l-1.0)*uq_m5
+                rlminus1_u_kl_m0 = @. rfilt^(l-1.0)*uq_m0
+                rlminus1_u_kl_m1 = @. rfilt^(l-1.0)*uq_m1
+                rlminus1_u_kl_m2 = @. rfilt^(l-1.0)*uq_m2
+                rlminus1_u_kl_m5 = @. rfilt^(l-1.0)*uq_m5
 
                 # ∂t_utld_kl = r^l*α*πq/(B*A^0.5)
-                dt_utld_kl_m0 = @. r^l* α* πq_m0/(B* A^0.5)
-                dt_utld_kl_m1 = @. r^l* α* πq_m1/(B* A^0.5)
-                dt_utld_kl_m2 = @. r^l* α* πq_m2/(B* A^0.5)
-                dt_utld_kl_m5 = @. r^l* α* πq_m5/(B* A^0.5)
+                dt_utld_kl_m0 = @. rfilt^l* α* πq_m0/(B* A^0.5)
+                dt_utld_kl_m1 = @. rfilt^l* α* πq_m1/(B* A^0.5)
+                dt_utld_kl_m2 = @. rfilt^l* α* πq_m2/(B* A^0.5)
+                dt_utld_kl_m5 = @. rfilt^l* α* πq_m5/(B* A^0.5)
 
                 # ∂r_utld_kl = l*r^(l-1)*uq + r^l*ψq
-                dr_utld_kl_m0 = @. (l*r^(l-1)*uq_m0 + ψq_m0*r^l)
-                dr_utld_kl_m1 = @. (l*r^(l-1)*uq_m1 + ψq_m1*r^l)
-                dr_utld_kl_m2 = @. (l*r^(l-1)*uq_m2 + ψq_m2*r^l)
-                dr_utld_kl_m5 = @. (l*r^(l-1)*uq_m5 + ψq_m5*r^l)
+                dr_utld_kl_m0 = @. (l*rfilt^(l-1)*uq_m0 + ψq_m0*rfilt^l)
+                dr_utld_kl_m1 = @. (l*rfilt^(l-1)*uq_m1 + ψq_m1*rfilt^l)
+                dr_utld_kl_m2 = @. (l*rfilt^(l-1)*uq_m2 + ψq_m2*rfilt^l)
+                dr_utld_kl_m5 = @. (l*rfilt^(l-1)*uq_m5 + ψq_m5*rfilt^l)
 
                 # utld_kl = r^l*uq
-                utld_kl_m0 = @. r^l*uq_m0
-                utld_kl_m1 = @. r^l*uq_m1
-                utld_kl_m2 = @. r^l*uq_m2
-                utld_kl_m5 = @. r^l*uq_m5
+                utld_kl_m0 = @. rfilt^l*uq_m0
+                utld_kl_m1 = @. rfilt^l*uq_m1
+                utld_kl_m2 = @. rfilt^l*uq_m2
+                utld_kl_m5 = @. rfilt^l*uq_m5
 
                 # bilin[:,1]
                 # (4*π)/(hbar*c^2)*[μ^2*<Φ^2>]_quantum=Sum_{klm} dk*μ^2[m]*weight[m]*|utld_klm|^2;
