@@ -128,10 +128,41 @@ end
     t = 0.0
     # radial grid
     rr = sys.r
-    # v_classic = [Φ, Π, Ψ, A, B, DB, Utld, K, KB, λ, α, Dα, Θ, Zr, f, g, U, V]^T
+
+    # without ghost fields
+    v_quantum = zeros(ComplexF64, (length(rr), Int(p.lmax+1), Int(p.kmax), 3))
+    v_quantum = SpheriCo.quantum.quantum_ID(v_quantum, sys, p)
+    test_v_quantum = zeros(ComplexF64, (length(rr), Int(p.lmax+1), Int(p.kmax), 3))
+    for ll in 0:p.lmax
+        for kk in 1:p.kmax
+            # index for uq, ψq, and πq
+            uqi = 1
+            ψqi = 2
+            πqi = 3
+            mi = 0.0
+            for i in 3:Nr
+                k=kk*p.dk
+                # uq; even
+                test_v_quantum[i, Int(ll+1), Int(kk), uqi] = test_uq_ID(sys.r[i], k, mi, Float64(ll) )
+                # ψq; odd
+                test_v_quantum[i, Int(ll+1), Int(kk), ψqi] = test_ψq_ID(sys.r[i], k, mi, Float64(ll) )
+                # πq; even
+                test_v_quantum[i, Int(ll+1), Int(kk), πqi] = test_πq_ID(sys.r[i], k, mi, Float64(ll) )
+            end
+            # uq ghosts; even
+            test_v_quantum[:, Int(ll+1), Int(kk), uqi] = even_ghosts(test_v_quantum[:, Int(ll+1), Int(kk), uqi])
+            # ψq ghosts; odd
+            test_v_quantum[:, Int(ll+1), Int(kk), ψqi] = odd_ghosts(test_v_quantum[:, Int(ll+1), Int(kk), ψqi])
+            # πq ghosts; even
+            test_v_quantum[:, Int(ll+1), Int(kk), πqi] = even_ghosts(test_v_quantum[:, Int(ll+1), Int(kk), πqi])
+        end
+    end
+    # test
+    @test maximum(abs.(v_quantum - test_v_quantum)) < 1e-16
+
+    # with ghost fields
     v_quantum = zeros(ComplexF64, (length(rr), Int(p.lmax+1), Int(p.kmax), length(p.mlist), 3))
     v_quantum = SpheriCo.quantum.quantum_ID(v_quantum, sys, p)
-    
     test_v_quantum = zeros(ComplexF64, (length(rr), Int(p.lmax+1), Int(p.kmax), length(p.mlist), 3))
     for ll in 0:p.lmax
         for kk in 1:p.kmax
