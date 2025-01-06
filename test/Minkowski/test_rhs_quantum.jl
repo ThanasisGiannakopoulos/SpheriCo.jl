@@ -96,6 +96,7 @@ function test_ψq_r_ID(r::Array, k::Float64, m::Float64, l::Float64)
     return f
 end
 
+# without ghosts
 @testset "Test quantum rhs: Minkowski (no ghosts, no backreaction)" begin
 
     # change D for number of points
