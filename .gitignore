@@ -2,3 +2,5 @@ examples/bisection/
 examples/classical_runs/
 examples/public_data/
 examples/quantum_runs/
+tools/attic/
+tools/.ipynb_checkpoints/
