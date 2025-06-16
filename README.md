@@ -14,3 +14,5 @@ see the [documentation](https://sphericojl.readthedocs.io/en/latest/index.html#)
 Videos from simulations made using the code can be found [here](https://youtube.com/playlist?list=PLyJ_PP8qOGF8pj5YvAKoQHOc9wp6fSUNk&si=82SbY7HFB6IBdRIW).
 
 For comments or questions, please contact me at giannakopoulos.th@gmail.com.
+
+If you are using SpheriCo.jl in your work, please consider citing ``[Quantum correlations in a gravitational collapse simulation with SpheriCo.jl](https://link.springer.com/article/10.1007/JHEP05(2025)173)''.
